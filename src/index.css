@@ -17,7 +17,7 @@ textarea {
   font: inherit;
 }
 
-header {
+/* header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -64,5 +64,5 @@ header {
     border-radius: 8px;
     min-width: 120px;
   }
-}
+} */
 

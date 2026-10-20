@@ -1,0 +1,175 @@
+.matchupCard {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  height: 100%;
+}
+
+.matchupTeams {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.matchupTeam {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-3);
+}
+
+.matchupVersus {
+  color: var(--color-text-muted);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.matchupHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.matchupHeader h1 {
+  font-size: 1.25rem;
+  margin-top: var(--space-4);
+}
+
+.matchupHeader p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.matchupDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.matchupDetails h1,
+.matchupDetails h2,
+.matchupDetails h3,
+.matchupDetails h4,
+.matchupDetails h5,
+.matchupDetails h6,
+.matchupDetails p {
+  margin: 0;
+}
+
+.matchupStatus {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.matchupStatus.upcoming {
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+}
+
+.matchupStatus.live {
+  background-color: #163d32;
+  color: #65d6a0;
+}
+
+.matchupStatus.final {
+  background-color: #303b4e;
+  color: var(--color-text-muted);
+}
+
+.teamAvatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 8px;
+  background-color: #5c6066;
+  color: var(--color-text, #f4f6fb);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matchupTeam {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.matchupTeam p,
+.matchupTeam h2 {
+  margin: 0;
+}
+
+.matchupFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+
+  margin-top: auto;
+  padding-top: var(--space-4);
+
+  border-top: 1px solid var(--color-border);
+}
+
+.matchupFooter p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.matchupFooter span {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.matchupInfo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.projectedPoints,
+.scoringPeriod {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.projectedPoints p,
+.projectedPoints h2,
+.scoringPeriod p,
+.scoringPeriod h2 {
+  margin: 0;
+}
+
+.projectedPoints p,
+.scoringPeriod p {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.projectedPoints h2,
+.scoringPeriod h2 {
+  color: var(--color-text);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
