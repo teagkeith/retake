@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 import './App.css'
-import { players } from './data/players';
-import StatCard from './components/StatCard'
-import PlayerCard from './components/PlayerCard';
+import { players } from './features/roster/data/players';
+import StatCard from './features/dashboard/components/StatCard'
+import PlayerCard from './features/roster/components/PlayerCard';
 
 
 const leagueStats = [
