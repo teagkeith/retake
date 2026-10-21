@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "verify": "vitest run && npm run build && git status --short",
+    "checkpoint": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./scripts/checkpoint.ps1"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",
