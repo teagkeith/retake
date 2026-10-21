@@ -5,10 +5,10 @@ interface StatCardProps {
   title: string;
   value: string;
   subtitle?: string;
-  icon?:LucideIcon;
+  icon?: LucideIcon;
 }
 
-function StatCard({ title, value, subtitle, icon: Icon}: StatCardProps) {
+function StatCard({ title, value, subtitle, icon: Icon }: StatCardProps) {
   return (
     <div className="statCard">
       <div className="statCardHeader">

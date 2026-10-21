@@ -1,3 +1,8 @@
+
+/* =========================================
+   ROSTER PAGE
+========================================= */
+
 .rosterPage {
   width: 100%;
   max-width: 1400px;
@@ -7,12 +12,17 @@
   flex-direction: column;
   gap: var(--space-6);
 }
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
 .rosterHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: var(--space-4);
+  justify-content: space-between;
   flex-wrap: wrap;
+  gap: var(--space-4);
 }
 
 .rosterHeader h1,
@@ -21,22 +31,260 @@
 }
 
 .rosterHeader h1 {
-  font-size: 1.75rem;
   color: var(--color-text);
+  font-size: 1.75rem;
 }
 
 .rosterHeader p {
   color: var(--color-text-muted);
   font-size: 0.875rem;
 }
+
 .rosterCount {
   background-color: var(--color-primary);
   color: var(--color-accent);
+
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
+
   font-size: 0.875rem;
   font-weight: 600;
 }
+
+/* =========================================
+   LINEUP MANAGER
+========================================= */
+
+.lineupManager {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.lineupManagerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.lineupManagerHeader h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.25rem;
+}
+
+/* Save Lineup Button */
+
+.lineupManager button {
+  background-color: var(--color-primary-lighter);
+  color: var(--color-text);
+  border: 1px solid var(--color-primary-brighter);
+  border-radius: var(--radius-md);
+
+  padding: var(--space-3) var(--space-5);
+
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.lineupManager button:hover:not(:disabled) {
+  background-color: var(--color-primary-brighter);
+  border-color: var(--color-accent);
+}
+
+.lineupManager button:disabled {
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.lineupManager button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Lineup Progress */
+
+.lineupProgress {
+  width: 100%;
+  height: 8px;
+
+  background-color: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.lineupProgressFill {
+  height: 100%;
+
+  background-color: var(--color-accent);
+  border-radius: inherit;
+
+  transition: width 0.25s ease;
+}
+
+/* Lineup Status */
+
+.status-incomplete,
+.status-saved,
+.status-warning {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.status-incomplete {
+  color: var(--color-text-muted);
+}
+
+.status-saved {
+  color: #65d6a0;
+}
+
+.status-warning {
+  color: #eab76b;
+}
+
+.rosterMessage {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 0.875rem;
+}
+
+/* =========================================
+   SAVED LINEUP
+========================================= */
+
+.savedLineup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  padding: var(--space-5);
+}
+
+/* Saved Lineup Header */
+
+.savedLineupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.savedLineupTitle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.savedLineupTitle h2,
+.savedLineupTitle p {
+  margin: 0;
+}
+
+.savedLineupTitle h2 {
+  color: var(--color-text);
+  font-size: 1.25rem;
+}
+
+.savedLineupTitle p {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.savedLineupCount {
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Saved Player List */
+
+.savedLineupPlayers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.savedPlayer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+
+  padding: var(--space-3) var(--space-4);
+
+  background-color: #22283a;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.savedPlayerIdentity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.savedPlayerIdentity p {
+  margin: 0;
+}
+
+.savedPlayerName {
+  color: var(--color-text);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.savedPlayerTeam {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.savedPlayerPoints {
+  color: var(--color-accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.savedLineupEmpty {
+  margin: 0;
+  padding: var(--space-4);
+
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* =========================================
+   PLAYER CARD GRID
+========================================= */
 
 .rosterContent {
   display: grid;
@@ -44,6 +292,9 @@
   gap: var(--space-4);
 }
 
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
 
 @media (max-width: 1100px) {
   .rosterContent {
@@ -53,6 +304,26 @@
 
 @media (max-width: 600px) {
   .rosterContent {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lineupManager,
+  .savedLineup {
+    padding: var(--space-4);
+  }
+
+  .savedPlayer {
+    padding: var(--space-3);
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .lineupManager button,
+  .lineupProgressFill {
+    transition: none;
   }
 }

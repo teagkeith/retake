@@ -22,6 +22,7 @@ function RosterPage({
 }: RosterPageProps) {
   return (
     <div className="rosterPage">
+      {/* Page Header */}
       <header className="rosterHeader">
         <div>
           <h1>My Roster</h1>
@@ -31,10 +32,82 @@ function RosterPage({
         <span className="rosterCount">{starterIds.length} / 5 STARTERS</span>
       </header>
 
-      {err && <p className="rosterMessage">{err}</p>}
+      {/* Lineup Manager */}
+      <section className="lineupManager">
+        <div className="lineupManagerHeader">
+          <h2>Starting Lineup</h2>
 
-      <div className="rosterContent">
-        
+          <button
+            type="button"
+            onClick={saveLineup}
+            disabled={lineupMatch || starterIds.length !== 5}
+          >
+            Save Lineup
+          </button>
+        </div>
+
+        <div
+          className="lineupProgress"
+          role="progressbar"
+          aria-label="Starting lineup slots filled"
+          aria-valuemin={0}
+          aria-valuemax={5}
+          aria-valuenow={starterIds.length}
+        >
+          <div
+            className="lineupProgressFill"
+            style={{ width: `${(starterIds.length / 5) * 100}%` }}
+          />
+        </div>
+
+        {starterIds.length < 5 ? (
+          <p className="status-incomplete">Select {5 - starterIds.length} more starters</p>
+        ) : lineupMatch ? (
+          <p className="status-saved">Lineup is up to date</p>
+        ) : (
+          <p className="status-warning">You have unsaved changes</p>
+        )}
+
+        {err && (
+          <p className="rosterMessage" role="status">
+            {err}
+          </p>
+        )}
+      </section>
+
+      {/* Saved Starting Five */}
+      <section className="savedLineup">
+        <header className="savedLineupHeader">
+          <div className="savedLineupTitle">
+            <h2>Saved Starting Five</h2>
+            <p>Your currently committed lineup</p>
+          </div>
+
+          <span className="savedLineupCount">{savedPlayers.length} / 5</span>
+        </header>
+
+        <div className="savedLineupPlayers">
+          {savedPlayers.length > 0 ? (
+            savedPlayers.map((player) => (
+              <div className="savedPlayer" key={player.id}>
+                <div className="savedPlayerIdentity">
+                  <p className="savedPlayerName">{player.name}</p>
+                  <p className="savedPlayerTeam">{player.team}</p>
+                </div>
+
+                <span className="savedPlayerPoints">{player.fantasyPoints} PTS</span>
+              </div>
+            ))
+          ) : (
+            <p className="savedLineupEmpty">
+              No lineup saved yet. Select five starters and save your lineup.
+            </p>
+          )}
+        </div>
+      </section>
+
+      {/* Player Cards */}
+      <section className="rosterContent" aria-label="Available players">
         {players.map((player) => (
           <PlayerCard
             key={player.id}
@@ -43,23 +116,7 @@ function RosterPage({
             onToggleStarter={() => toggleStarter(player.id)}
           />
         ))}
-      </div>
-      {lineupMatch ? (
-        <p className="status-saved">Lineup is up to date</p>
-      ) : (
-        <p className="status-warning">You have unsaved changes</p>
-      )}
-
-      <div className="savedLineup">
-        {savedPlayers.map((player) => (
-          <p key={player.id}>
-            {player.name} - {player.team} - {player.fantasyPoints}
-          </p>
-        ))}
-      </div>
-      <button onClick={saveLineup} disabled={lineupMatch || starterIds.length !== 5}>
-        Save Lineup
-      </button>
+      </section>
     </div>
   );
 }
