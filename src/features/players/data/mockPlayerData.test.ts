@@ -35,13 +35,20 @@ describe('Mock Player Data Integration', () => {
 
     expect(result).toEqual({
       id: 'player-5',
-      name: 'Phantom',
-      team: 'Nova Esports',
-      role: 'duelist',
+      name: 'brawk',
+      team: 'NRG',
+      role: 'initiator',
       kills: 58,
       deaths: 37,
       assists: 14,
       fantasyPoints: 108,
     });
+  });
+  it('every mock player belongs to a known professional team', () => {
+    for (const player of mockProPlayers) {
+      const team = getProTeamById(mockProTeams, player.teamId);
+
+      expect(team, `Missing team for ${player.name}`).toBeDefined();
+    }
   });
 });

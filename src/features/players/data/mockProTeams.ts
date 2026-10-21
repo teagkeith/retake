@@ -4,19 +4,19 @@ export type CompetitiveRegion = 'Americas' | 'EMEA' | 'Pacific' | 'China';
 
 export const mockProTeams: ProTeam[] = [
   {
-    id: 'pro-team-nova',
-    name: 'Nova Esports',
+    id: 'pro-team-sad-esports',
+    name: 'SaD Esports',
     region: 'Americas',
     active: true,
   },
   {
     id: 'pro-team-vitality',
     name: 'Team Vitality',
-    region: 'Europe',
+    region: 'EMEA',
     active: true,
   },
   {
-    id: 'pro-team-100thieves',
+    id: 'pro-team-100-thieves',
     name: '100Thieves',
     region: 'Americas',
     active: true,

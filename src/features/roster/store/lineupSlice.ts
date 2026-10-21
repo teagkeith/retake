@@ -1,8 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface LineupState {
-  starterIds: number[];
-  savedStarterIds: number[];
+  starterIds: string[];
+  savedStarterIds: string[];
   err: string;
 }
 
@@ -16,7 +16,7 @@ export const lineupSlice = createSlice({
   name: 'lineup',
   initialState,
   reducers: {
-    toggleStarter: (state, action: PayloadAction<number>) => {
+    toggleStarter: (state, action: PayloadAction<string>) => {
       const playerId = action.payload;
 
       if (state.starterIds.includes(playerId)) {
@@ -36,7 +36,7 @@ export const lineupSlice = createSlice({
       }
       state.savedStarterIds = [...state.starterIds];
       state.err = '';
-    }
+    },
   },
 });
 
