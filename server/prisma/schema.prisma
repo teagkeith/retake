@@ -12,7 +12,6 @@ datasource db {
   provider = "mysql"
 }
 
-
 enum LineupStatus {
   draft
   submitted
@@ -20,14 +19,32 @@ enum LineupStatus {
 }
 
 model FantasyLineup {
-  id              String       @id @default(cuid())
-  fantasyTeamId   String
-  scoringWeekId   String
-  status          LineupStatus @default(draft)
+  id               String       @id @default(cuid())
+  fantasyTeamId    String
+  scoringWeekId    String
+  status           LineupStatus @default(draft)
   starterPlayerIds Json
-  lockedAt        DateTime?
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+  lockedAt         DateTime?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  fantasyTeam      FantasyTeam  @relation(fields: [fantasyTeamId], references: [id])
 
   @@unique([fantasyTeamId, scoringWeekId])
+}
+
+model FantasyTeam {
+  id      String                @id
+  name    String
+  roster  FantasyRosterPlayer[]
+  lineups FantasyLineup[]
+}
+
+model FantasyRosterPlayer {
+  id            String @id @default(cuid())
+  fantasyTeamId String
+  proPlayerId   String
+
+  fantasyTeam FantasyTeam @relation(fields: [fantasyTeamId], references: [id])
+
+  @@unique([fantasyTeamId, proPlayerId])
 }

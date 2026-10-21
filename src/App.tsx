@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { mockFantasyTeams } from './features/league/data/mockFantasyTeams';
+import { fetchFantasyTeam } from './features/league/api/fantasyTeamApi';
 
 import { useAppDispatch, useAppSelector } from './app/hooks';
 
@@ -34,6 +34,9 @@ const activeScoringWeek = {
 
 function App() {
   const [activeTab, setActiveTab] = useState<'overview' | 'roster'>('overview');
+  const [teamLoading, setTeamLoading] = useState(true);
+  const [teamError, setTeamError] = useState(''); 
+
 
   const dispatch = useAppDispatch();
   const starterIds = useAppSelector(selectStarterIds);
@@ -58,19 +61,40 @@ function App() {
   const isLineupLocked =
     new Date(currentTime).getTime() >= new Date(activeScoringWeek.startsAt).getTime();
 
-  useEffect(() => {
-    const fantasyTeam = mockFantasyTeams[0];
+    useEffect(() => {
+    let cancelled = false;
 
-    if (!fantasyTeam) return;
+    async function initializeTeam() {
+      try {
+        const fantasyTeam = await fetchFantasyTeam('fantasy-team-1');
 
-    dispatch(
-      loadFantasyTeam({
-        fantasyTeamId: fantasyTeam.id,
-        rosterPlayerIds: fantasyTeam.rosterPlayerIds,
-      }),
-    );
+        if (cancelled) return;
 
-    dispatch(selectScoringWeek(activeScoringWeek.id));
+        dispatch(
+          loadFantasyTeam({
+            fantasyTeamId: fantasyTeam.id,
+            rosterPlayerIds: fantasyTeam.rosterPlayerIds,
+          }),
+        );
+
+        dispatch(selectScoringWeek(activeScoringWeek.id));
+        setTeamError('');
+      } catch (error) {
+        if (cancelled) return;
+
+        setTeamError(
+          error instanceof Error ? error.message : 'Could not load fantasy team.',
+        );
+      } finally {
+        if (!cancelled) setTeamLoading(false);
+      }
+    }
+
+    void initializeTeam();
+
+    return () => {
+      cancelled = true;
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -88,8 +112,16 @@ function App() {
     <AppLayout activeTab={activeTab} onTabChange={setActiveTab}>
       <div className="leagueContent">
         {activeTab === 'overview' && <OverviewPage />}
-        {activeTab === 'roster' && (
-          <RosterPage
+        {activeTab === 'roster' && teamLoading && (
+            <p role="status">Loading your fantasy roster...</p>
+          )}
+
+        {activeTab === 'roster' && !teamLoading && teamError && (
+            <p role="alert">{teamError}</p>
+          )}
+
+        {activeTab === 'roster' && !teamLoading && !teamError && (
+            <RosterPage
             starterIds={starterIds}
             toggleStarter={(playerId) =>
               dispatch(
