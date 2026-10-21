@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import { prisma } from './lib/prisma.js';
 
 const app = express();
 const PORT = 3001;
@@ -19,6 +20,17 @@ app.get('/api/health', (_req, res) => {
     status: 'ok',
     application: 'Rotate API',
   });
+});
+
+app.get('/api/lineups', async (_req, res) => {
+  try {
+    const lineups = await prisma.fantasyLineup.findMany();
+
+    res.json(lineups);
+  } catch (error) {
+    console.error('Failed to retrieve lineups:', error);
+    res.status(500).json({ error: 'Database query failed' });
+  }
 });
 
 
