@@ -9,6 +9,7 @@ import {
   selectScoringWeek,
   toggleStarter,
   submitCurrentLineup,
+  saveDraft,
 } from './features/roster/store/lineupSlice';
 
 import {
@@ -17,6 +18,7 @@ import {
   selectLineupError,
   selectLineupMatch,
   selectSavedPlayers,
+  selectDraftSaved,
 } from './features/roster/store/lineSelectors';
 
 import './App.css';
@@ -40,6 +42,21 @@ function App() {
 
   const savedPlayers = useAppSelector(selectSavedPlayers);
   const rosterPlayerIds = useAppSelector(selectRosterPlayerIds);
+
+  const draftSaved = useAppSelector(selectDraftSaved);
+
+  const [currentTime, setCurrentTime] = useState(() => new Date().toISOString());
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setCurrentTime(new Date().toISOString());
+    }, 1000);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  const isLineupLocked =
+    new Date(currentTime).getTime() >= new Date(activeScoringWeek.startsAt).getTime();
 
   useEffect(() => {
     const fantasyTeam = mockFantasyTeams[0];
@@ -72,6 +89,14 @@ function App() {
                 }),
               )
             }
+            saveDraft={() =>
+              dispatch(
+                saveDraft({
+                  scoringWeekStartsAt: activeScoringWeek.startsAt,
+                  currentTime: new Date().toISOString(),
+                }),
+              )
+            }
             saveLineup={() =>
               dispatch(
                 submitCurrentLineup({
@@ -84,6 +109,8 @@ function App() {
             err={err}
             savedPlayers={savedPlayers}
             rosterPlayerIds={rosterPlayerIds}
+            draftSaved={draftSaved}
+            isLineupLocked={isLineupLocked}
           />
         )}
       </div>

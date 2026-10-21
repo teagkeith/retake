@@ -10,12 +10,14 @@ interface RosterPageProps {
   rosterPlayerIds: string[];
   starterIds: string[];
   toggleStarter: (playerId: string) => void;
+  saveDraft: () => void;
   saveLineup: () => void;
   lineupMatch: boolean;
   err: string;
   savedPlayers: PlayerCardData[];
+  draftSaved: boolean;
+  isLineupLocked: boolean;
 }
-
 const rosterPlayers = buildPlayerCardData(
   mockProPlayers,
   mockProTeams,
@@ -26,11 +28,14 @@ const rosterPlayers = buildPlayerCardData(
 function RosterPage({
   starterIds,
   toggleStarter,
+  saveDraft,
   saveLineup,
   lineupMatch,
   err,
   savedPlayers,
   rosterPlayerIds,
+  draftSaved,
+  isLineupLocked,
 }: RosterPageProps) {
   const ownedPlayers = rosterPlayers.filter((player) => rosterPlayerIds.includes(player.id));
   return (
@@ -50,13 +55,24 @@ function RosterPage({
         <div className="lineupManagerHeader">
           <h2>Starting Lineup</h2>
 
-          <button
-            type="button"
-            onClick={saveLineup}
-            disabled={lineupMatch || starterIds.length !== 5}
-          >
-            Submit Lineup
-          </button>
+          <div className="lineupActions">
+            <button
+              type="button"
+              className="saveDraftButton"
+              onClick={saveDraft}
+              disabled={isLineupLocked}
+            >
+              Save Draft
+            </button>
+
+            <button
+              type="button"
+              onClick={saveLineup}
+              disabled={isLineupLocked || lineupMatch || starterIds.length !== 5}
+            >
+              Submit Lineup
+            </button>
+          </div>
         </div>
 
         <div
@@ -73,12 +89,20 @@ function RosterPage({
           />
         </div>
 
-        {starterIds.length < 5 ? (
-          <p className="status-incomplete">Select {5 - starterIds.length} more starters</p>
-        ) : lineupMatch ? (
-          <p className="status-saved">Lineup is up to date</p>
+        {isLineupLocked ? (
+          <p className="status-warning">
+            Scoring week locked. Your lineup can no longer be changed.
+          </p>
+        ) : draftSaved ? (
+          <p className="status-saved">Draft saved successfully</p>
+        ) : lineupMatch && savedPlayers.length === 5 ? (
+          <p className="status-saved">Lineup submitted and up to date</p>
+        ) : starterIds.length < 5 ? (
+          <p className="status-incomplete">
+            Select {5 - starterIds.length} more starters, or save your draft
+          </p>
         ) : (
-          <p className="status-warning">You have unsaved changes</p>
+          <p className="status-warning">You have unsubmitted changes</p>
         )}
 
         {err && (
@@ -129,6 +153,7 @@ function RosterPage({
             player={player}
             isStarter={starterIds.includes(player.id)}
             onToggleStarter={() => toggleStarter(player.id)}
+            disabled={isLineupLocked}
           />
         ))}
       </section>

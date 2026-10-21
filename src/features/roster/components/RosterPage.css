@@ -292,6 +292,24 @@
   gap: var(--space-4);
 }
 
+.lineupActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.lineupActions .saveDraftButton {
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+}
+
+.lineupActions .saveDraftButton:hover {
+  background: rgba(181, 167, 255, 0.1);
+}
+
+
 /* =========================================
    RESPONSIVE DESIGN
 ========================================= */

@@ -6,9 +6,10 @@ interface PlayerCardProps {
   player: PlayerCardData;
   isStarter: boolean;
   onToggleStarter: () => void;
+  disabled?: boolean;
 }
 
-function PlayerCard({ player, isStarter, onToggleStarter }: PlayerCardProps) {
+function PlayerCard({ player, isStarter, onToggleStarter, disabled = false }: PlayerCardProps) {
   return (
     <div className={`playerCard ${isStarter ? 'selectedStarter' : ''}`}>
       <span className="playerStatus">{isStarter ? 'STARTER' : 'BENCH'}</span>
@@ -28,7 +29,7 @@ function PlayerCard({ player, isStarter, onToggleStarter }: PlayerCardProps) {
           <p className="playerPoints">{player.fantasyPoints ?? '—'}</p>
         </div>
 
-        <button type="button" onClick={onToggleStarter}>
+        <button type="button" onClick={onToggleStarter} disabled={disabled}>
           {isStarter ? 'Move to Bench' : 'Set Starter'}
         </button>
       </div>
