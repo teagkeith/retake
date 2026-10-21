@@ -1,4 +1,4 @@
-import "./StandingsCard.css"
+import './StandingsCard.css';
 
 const teams = [
   {
@@ -60,6 +60,8 @@ const teams = [
 ];
 
 function StandingsCard() {
+  const currentTeamId = 3;
+
   return (
     <section className="standingsCard">
       <header className="standingsHeader">
@@ -76,15 +78,22 @@ function StandingsCard() {
         </thead>
 
         <tbody>
-          {teams.map((team) => (
-            <tr className="teamRow" key={team.id}>
-              <td className="teamRank">{team.rank}</td>
-              <td className="teamName">{team.name}</td>
-              <td className="winLoss">
-                {team.wins} - {team.losses}
-              </td>
-            </tr>
-          ))}
+          {teams.map((team) => {
+            const isCurrentTeam = team.id === currentTeamId;
+
+            return (
+              <tr key={team.id} className={`teamRow ${isCurrentTeam ? 'currentTeam' : ''}`}>
+                <td className="teamRank">{team.rank}</td>
+                <td className="teamName">
+                  {team.name}
+                  {isCurrentTeam && <span className="currentTeamLabel">YOU</span>}
+                  </td>
+                <td className="winLoss">
+                  {team.wins} - {team.losses}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </section>

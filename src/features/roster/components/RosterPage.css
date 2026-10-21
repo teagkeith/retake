@@ -1,0 +1,58 @@
+.rosterPage {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.rosterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.rosterHeader h1,
+.rosterHeader p {
+  margin: 0;
+}
+
+.rosterHeader h1 {
+  font-size: 1.75rem;
+  color: var(--color-text);
+}
+
+.rosterHeader p {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+.rosterCount {
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.rosterContent {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+
+@media (max-width: 1100px) {
+  .rosterContent {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .rosterContent {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

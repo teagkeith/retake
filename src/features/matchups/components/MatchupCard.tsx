@@ -1,4 +1,5 @@
 import './MatchupCard.css';
+import { Swords } from 'lucide-react';
 
 interface MatchupCardProps {
   week: number;
@@ -16,6 +17,7 @@ function MatchupCard({ week, homeTeam, awayTeam, homeScore, awayScore, status }:
     <section className="matchupCard">
       <header className="matchupHeader">
         <div className="matchupDetails">
+          <span className="matchupEyebrow">FEATURED MATCHUP</span>
           <h2>Weekly Matchup</h2>
           <p>Week {week}</p>
         </div>
@@ -27,17 +29,16 @@ function MatchupCard({ week, homeTeam, awayTeam, homeScore, awayScore, status }:
 
       <div className="matchupTeams">
         <div className="matchupTeam">
-          <div className="teamAvatar">{homeTeamInitials}</div>
+          <div className="teamAvatar homeAvatar">{homeTeamInitials}</div>
           <p>{homeTeam}</p>
           <h2>{homeScore.toFixed(1)}</h2>
         </div>
-
         <div className="matchupVersus">
-          <span>VS</span>
+          <Swords size={28} />
+          <label>Week {week}</label>
         </div>
-
         <div className="matchupTeam">
-          <div className="teamAvatar">{awayTeamInitials}</div>
+          <div className="teamAvatar awayAvatar">{awayTeamInitials}</div>
           <p>{awayTeam}</p>
           <h2>{awayScore.toFixed(1)}</h2>
         </div>
@@ -55,7 +56,11 @@ function MatchupCard({ week, homeTeam, awayTeam, homeScore, awayScore, status }:
         </div>
       </div>
       <footer className="matchupFooter">
-        <p>Matchup has not started</p>
+        {status === 'final'
+          ? 'Matchup is finished'
+          : status === 'live'
+            ? 'Matchup is in progress'
+            : 'Matchup has not started.'}
         <span>Matchup Details →</span>
       </footer>
     </section>

@@ -1,3 +1,4 @@
+import './RosterPage.css';
 import PlayerCard from '../components/PlayerCard';
 import { players } from '../data/players';
 import type { Player } from '../types/Player';
@@ -20,9 +21,20 @@ function RosterPage({
   savedPlayers,
 }: RosterPageProps) {
   return (
-    <>
+    <div className="rosterPage">
+      <header className="rosterHeader">
+        <div>
+          <h1>My Roster</h1>
+          <p>Manage your fantasy starting lineup.</p>
+        </div>
+
+        <span className="rosterCount">{starterIds.length} / 5 STARTERS</span>
+      </header>
+
+      {err && <p className="rosterMessage">{err}</p>}
+
       <div className="rosterContent">
-        <p>{err}</p>
+        
         {players.map((player) => (
           <PlayerCard
             key={player.id}
@@ -48,7 +60,7 @@ function RosterPage({
       <button onClick={saveLineup} disabled={lineupMatch || starterIds.length !== 5}>
         Save Lineup
       </button>
-    </>
+    </div>
   );
 }
 

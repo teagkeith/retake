@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './App.css';
 import { players } from './features/roster/data/players';
 import OverviewPage from './features/dashboard/pages/OverviewPage';
-import RosterPage from './features/roster/pages/RosterPage';
+import RosterPage from './features/roster/components/RosterPage';
 import AppLayout from './layouts/AppLayout';
 
 function App() {
@@ -61,7 +61,6 @@ function App() {
             savedPlayers={savedPlayers}
           />
         )}
-      
       </div>
     </AppLayout>
   );
