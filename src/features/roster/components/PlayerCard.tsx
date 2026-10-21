@@ -1,9 +1,9 @@
-import type { Player } from '../types/Player';
+import type { PlayerCardData } from '../../players/utils/toPlayerCardData';
 import './PlayerCard.css';
 import { UserRound } from 'lucide-react';
 
 interface PlayerCardProps {
-  player: Player;
+  player: PlayerCardData;
   isStarter: boolean;
   onToggleStarter: () => void;
 }
@@ -25,7 +25,7 @@ function PlayerCard({ player, isStarter, onToggleStarter }: PlayerCardProps) {
       <div className="playerCardFooter">
         <div className="playerFantasyPoints">
           <span>FANTASY POINTS</span>
-          <p className="playerPoints">{player.fantasyPoints}</p>
+          <p className="playerPoints">{player.fantasyPoints ?? '—'}</p>
         </div>
 
         <button type="button" onClick={onToggleStarter}>

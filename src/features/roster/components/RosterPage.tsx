@@ -1,16 +1,27 @@
 import './RosterPage.css';
 import PlayerCard from '../components/PlayerCard';
-import { players } from '../data/players';
-import type { Player } from '../types/Player';
+import { mockProPlayers } from '../../players/data/mockProPlayers';
+import { mockProTeams } from '../../players/data/mockProTeams';
+import { mockPlayerPerformances } from '../../players/data/mockPlayerPerformances';
+import { buildPlayerCardData } from '../../players/utils/buildPlayerCardData';
+import type { PlayerCardData } from '../utils/toPlayerCardData';
 
 interface RosterPageProps {
-  starterIds: number[];
-  toggleStarter: (playerId: number) => void;
+  rosterPlayerIds: string[];
+  starterIds: string[];
+  toggleStarter: (playerId: string) => void;
   saveLineup: () => void;
   lineupMatch: boolean;
   err: string;
-  savedPlayers: Player[];
+  savedPlayers: PlayerCardData[];
 }
+
+const rosterPlayers = buildPlayerCardData(
+  mockProPlayers,
+  mockProTeams,
+  mockPlayerPerformances,
+  'week-1',
+);
 
 function RosterPage({
   starterIds,
@@ -19,7 +30,9 @@ function RosterPage({
   lineupMatch,
   err,
   savedPlayers,
+  rosterPlayerIds,
 }: RosterPageProps) {
+  const ownedPlayers = rosterPlayers.filter((player) => rosterPlayerIds.includes(player.id));
   return (
     <div className="rosterPage">
       {/* Page Header */}
@@ -95,7 +108,9 @@ function RosterPage({
                   <p className="savedPlayerTeam">{player.team}</p>
                 </div>
 
-                <span className="savedPlayerPoints">{player.fantasyPoints} PTS</span>
+                <span className="savedPlayerPoints">
+                  {player.fantasyPoints === null ? '—' : `${player.fantasyPoints} PTS`}
+                </span>
               </div>
             ))
           ) : (
@@ -108,7 +123,7 @@ function RosterPage({
 
       {/* Player Cards */}
       <section className="rosterContent" aria-label="Available players">
-        {players.map((player) => (
+        {ownedPlayers.map((player) => (
           <PlayerCard
             key={player.id}
             player={player}
