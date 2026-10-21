@@ -1,4 +1,23 @@
-header {
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,4 +64,5 @@ header {
     border-radius: 8px;
     min-width: 120px;
   }
-}
+} */
+
