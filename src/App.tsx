@@ -79,7 +79,7 @@ function App() {
     dispatch(
       lockCurrentLineup({
         scoringWeekStartsAt: activeScoringWeek.startsAt,
-        currentTime,
+        currentTime: new Date().toISOString(),
       }),
     );
   }, [dispatch, isLineupLocked]);
