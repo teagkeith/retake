@@ -1,51 +1,32 @@
 import { useState } from 'react';
 
+// Redux 
+import { useAppDispatch, useAppSelector } from './app/hooks';
+import { toggleStarter, saveLineup } from './features/roster/store/lineupSlice';
+
+import {
+  selectStarterIds,
+  selectLineupError,
+  selectLineupMatch,
+  selectSavedPlayers,
+} from './features/roster/store/lineSelectors';
+
 import './App.css';
-import { players } from './features/roster/data/players';
 import OverviewPage from './features/dashboard/pages/OverviewPage';
 import RosterPage from './features/roster/components/RosterPage';
 import AppLayout from './layouts/AppLayout';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'overview' | 'roster'>('overview');
-  const [starterIds, setStarterIds] = useState<number[]>([]);
-  const [savedStarterIds, setSavedStarterIds] = useState<number[]>([]);
-  const [err, setErr] = useState('');
 
-  function toggleStarter(playerId: number) {
-    if (starterIds.includes(playerId)) {
-      setStarterIds((currentIds) => currentIds.filter((id) => id !== playerId));
+  const dispatch = useAppDispatch();
+  const starterIds = useAppSelector(selectStarterIds);
+  const err = useAppSelector(selectLineupError);
 
-      setErr('');
-      return;
-    }
 
-    if (starterIds.length >= 5) {
-      setErr('You can only have 5 starters at once.');
-      return;
-    }
+  const lineupMatch = useAppSelector(selectLineupMatch);
 
-    setStarterIds((currentIds) => [...currentIds, playerId]);
-    setErr('');
-  }
-
-  function saveLineup() {
-    if (starterIds.length !== 5) {
-      setErr(`You have ${starterIds.length}/5 starters selected.`);
-      return;
-    } else {
-      setErr('Lineup Saved!');
-      setSavedStarterIds([...starterIds]);
-    }
-  }
-
-  const lineupMatch =
-    starterIds.length === savedStarterIds.length &&
-    starterIds.every((id) => savedStarterIds.includes(id));
-
-  const savedPlayers = savedStarterIds
-    .map((id) => players.find((player) => player.id === id))
-    .filter((player) => player !== undefined);
+  const savedPlayers = useAppSelector(selectSavedPlayers);
 
   return (
     <AppLayout activeTab={activeTab} onTabChange={setActiveTab}>
@@ -54,8 +35,8 @@ function App() {
         {activeTab === 'roster' && (
           <RosterPage
             starterIds={starterIds}
-            toggleStarter={toggleStarter}
-            saveLineup={saveLineup}
+            toggleStarter={(playerId) => dispatch(toggleStarter(playerId))}
+            saveLineup={() => dispatch(saveLineup())}
             lineupMatch={lineupMatch}
             err={err}
             savedPlayers={savedPlayers}
