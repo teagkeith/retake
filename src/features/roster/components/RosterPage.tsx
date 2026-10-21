@@ -7,6 +7,7 @@ import { buildPlayerCardData } from '../../players/utils/buildPlayerCardData';
 import type { PlayerCardData } from '../utils/toPlayerCardData';
 
 interface RosterPageProps {
+  rosterPlayerIds: string[];
   starterIds: string[];
   toggleStarter: (playerId: string) => void;
   saveLineup: () => void;
@@ -29,7 +30,9 @@ function RosterPage({
   lineupMatch,
   err,
   savedPlayers,
+  rosterPlayerIds,
 }: RosterPageProps) {
+  const ownedPlayers = rosterPlayers.filter((player) => rosterPlayerIds.includes(player.id));
   return (
     <div className="rosterPage">
       {/* Page Header */}
@@ -105,7 +108,9 @@ function RosterPage({
                   <p className="savedPlayerTeam">{player.team}</p>
                 </div>
 
-                <span className="savedPlayerPoints">{player.fantasyPoints} PTS</span>
+                <span className="savedPlayerPoints">
+                  {player.fantasyPoints === null ? '—' : `${player.fantasyPoints} PTS`}
+                </span>
               </div>
             ))
           ) : (
@@ -118,7 +123,7 @@ function RosterPage({
 
       {/* Player Cards */}
       <section className="rosterContent" aria-label="Available players">
-        {rosterPlayers.map((player) => (
+        {ownedPlayers.map((player) => (
           <PlayerCard
             key={player.id}
             player={player}

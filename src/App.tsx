@@ -1,8 +1,11 @@
 import { useState } from 'react';
-
+import { useEffect } from 'react';
+import { mockFantasyTeams } from './features/league/data/mockFantasyTeams';
+import { loadFantasyTeam } from './features/roster/store/lineupSlice';
 // Redux 
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { toggleStarter, saveLineup } from './features/roster/store/lineupSlice';
+import { selectRosterPlayerIds } from './features/roster/store/lineSelectors';
 
 import {
   selectStarterIds,
@@ -27,6 +30,20 @@ function App() {
   const lineupMatch = useAppSelector(selectLineupMatch);
 
   const savedPlayers = useAppSelector(selectSavedPlayers);
+  const rosterPlayerIds = useAppSelector(selectRosterPlayerIds);
+
+  useEffect(() => {
+    const fantasyTeam = mockFantasyTeams[0];
+
+    if (!fantasyTeam) return;
+
+    dispatch(
+      loadFantasyTeam({
+        fantasyTeamId: fantasyTeam.id,
+        rosterPlayerIds: fantasyTeam.rosterPlayerIds,
+      }),
+    );
+  }, [dispatch]);
 
   return (
     <AppLayout activeTab={activeTab} onTabChange={setActiveTab}>
@@ -40,6 +57,7 @@ function App() {
             lineupMatch={lineupMatch}
             err={err}
             savedPlayers={savedPlayers}
+            rosterPlayerIds={rosterPlayerIds}
           />
         )}
       </div>

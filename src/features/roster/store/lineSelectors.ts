@@ -32,3 +32,5 @@ export const selectSavedPlayers = createSelector([selectSavedStarterIds], (saved
     .map((id) => playerCardData.find((player) => player.id === id))
     .filter((player) => player !== undefined),
 );
+
+export const selectRosterPlayerIds = (state: RootState) => state.lineup.rosterPlayerIds;
