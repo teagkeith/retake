@@ -89,9 +89,11 @@ function RosterPage({
           />
         </div>
 
-        {isLineupLocked ? (
+        {isLineupLocked && savedPlayers.length === 5 ? (
+          <p className="status-saved">Scoring week locked. Your submitted lineup is final.</p>
+        ) : isLineupLocked ? (
           <p className="status-warning">
-            Scoring week locked. Your lineup can no longer be changed.
+            Submission deadline passed. No lineup was submitted for this scoring week.
           </p>
         ) : draftSaved ? (
           <p className="status-saved">Draft saved successfully</p>

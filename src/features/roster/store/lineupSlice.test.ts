@@ -6,6 +6,7 @@ import lineupReducer, {
   selectScoringWeek,
   saveDraft,
   submitCurrentLineup,
+  lockCurrentLineup,
 } from './lineupSlice';
 
 const timing = {
@@ -328,5 +329,36 @@ describe('Fantasy team switching', () => {
     expect(state.lineups[key].status).toBe('submitted');
     expect(state.lineups[key].starterPlayerIds).toEqual(teamOne.rosterPlayerIds);
     expect(state.err).toBe('');
+  });
+  it('locks a submitted lineup at the deadline', () => {
+    let state = createSubmittedState();
+
+    state = lineupReducer(
+      state,
+      lockCurrentLineup({
+        ...timing,
+        currentTime: timing.scoringWeekStartsAt,
+      }),
+    );
+
+    expect(state.lineups['fantasy-team-1:week-1'].status).toBe('locked');
+    expect(state.lineups['fantasy-team-1:week-1'].lockedAt).toBe(timing.scoringWeekStartsAt);
+  });
+
+  it('does not lock an unsubmitted draft', () => {
+    let state = createTeamState();
+
+    state = lineupReducer(state, selectPlayer('player-1'));
+    state = lineupReducer(state, saveDraft(timing));
+
+    state = lineupReducer(
+      state,
+      lockCurrentLineup({
+        ...timing,
+        currentTime: timing.scoringWeekStartsAt,
+      }),
+    );
+
+    expect(state.lineups['fantasy-team-1:week-1'].status).toBe('draft');
   });
 });

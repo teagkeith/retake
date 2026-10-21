@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { FantasyLineup } from '../types/FantasyLineup';
 import { getLineupKey } from '../utils/getLineupKey';
-import { canEditLineup, saveLineupDraft, submitLineup } from '../utils/lineupLifecycle';
+import { canEditLineup, saveLineupDraft, submitLineup, lockLineup } from '../utils/lineupLifecycle';
 import { validateLineupDraft } from '../utils/lineupValidation';
 
 interface LineupState {
@@ -239,10 +239,51 @@ export const lineupSlice = createSlice({
         state.err = error instanceof Error ? error.message : 'Could not submit lineup.';
       }
     },
+    lockCurrentLineup: (
+      state,
+      action: PayloadAction<{
+        scoringWeekStartsAt: string;
+        currentTime: string;
+      }>,
+    ) => {
+      if (!state.fantasyTeamId || !state.scoringWeekId) {
+        return;
+      }
+
+      const key = getLineupKey(state.fantasyTeamId, state.scoringWeekId);
+      const lineup = state.lineups[key];
+
+      // Unsubmitted drafts must not become locked submissions.
+      if (!lineup || lineup.status !== 'submitted') {
+        return;
+      }
+
+      try {
+        state.lineups[key] = lockLineup(
+          lineup,
+          action.payload.scoringWeekStartsAt,
+          action.payload.currentTime,
+        );
+
+        // Any unfinished edits are no longer actionable.
+        delete state.workingDrafts[key];
+        state.starterIds = [...state.lineups[key].starterPlayerIds];
+        state.savedStarterIds = [...state.lineups[key].starterPlayerIds];
+        state.err = '';
+      } catch (error) {
+        state.err = error instanceof Error ? error.message : 'Could not lock lineup.';
+      }
+    },
   },
 });
 
-export const { loadFantasyTeam, toggleStarter, selectScoringWeek, saveDraft, submitCurrentLineup } =
-  lineupSlice.actions;
+export const {
+  loadFantasyTeam,
+  toggleStarter,
+  selectScoringWeek,
+  saveDraft,
+  submitCurrentLineup,
+  lockCurrentLineup,
+} = lineupSlice.actions;
 
 export default lineupSlice.reducer;

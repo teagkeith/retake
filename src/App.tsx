@@ -10,6 +10,7 @@ import {
   toggleStarter,
   submitCurrentLineup,
   saveDraft,
+  lockCurrentLineup,
 } from './features/roster/store/lineupSlice';
 
 import {
@@ -46,7 +47,6 @@ function App() {
   const draftSaved = useAppSelector(selectDraftSaved);
 
   const [currentTime, setCurrentTime] = useState(() => new Date().toISOString());
-
   useEffect(() => {
     const interval = window.setInterval(() => {
       setCurrentTime(new Date().toISOString());
@@ -72,6 +72,17 @@ function App() {
 
     dispatch(selectScoringWeek(activeScoringWeek.id));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!isLineupLocked) return;
+
+    dispatch(
+      lockCurrentLineup({
+        scoringWeekStartsAt: activeScoringWeek.startsAt,
+        currentTime,
+      }),
+    );
+  }, [dispatch, isLineupLocked]);
 
   return (
     <AppLayout activeTab={activeTab} onTabChange={setActiveTab}>
