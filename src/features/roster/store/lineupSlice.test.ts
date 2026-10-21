@@ -264,4 +264,69 @@ describe('Fantasy team switching', () => {
     expect(state.savedStarterIds).toEqual(teamOne.rosterPlayerIds);
     expect(state.lineups['fantasy-team-1:week-1'].status).toBe('submitted');
   });
+
+  it('preserves the official submission when saving new draft edits', () => {
+    let state = createSubmittedState();
+
+    const key = 'fantasy-team-1:week-1';
+
+    // Remove one starter from the working selection.
+    state = lineupReducer(state, selectPlayer('player-5'));
+
+    // Save the incomplete working draft.
+    state = lineupReducer(state, saveDraft(timing));
+
+    expect(state.workingDrafts[key]).toEqual(['player-1', 'player-2', 'player-3', 'player-4']);
+
+    // The official submission is unchanged.
+    expect(state.lineups[key].status).toBe('submitted');
+    expect(state.lineups[key].starterPlayerIds).toEqual(teamOne.rosterPlayerIds);
+    expect(state.savedStarterIds).toEqual(teamOne.rosterPlayerIds);
+
+    // Switch away and back.
+    state = lineupReducer(state, selectScoringWeek('week-2'));
+    state = lineupReducer(state, selectScoringWeek('week-1'));
+
+    // Restore the working edits, not the official five.
+    expect(state.starterIds).toHaveLength(4);
+    expect(state.savedStarterIds).toHaveLength(5);
+  });
+  it('restores working drafts when switching fantasy teams', () => {
+    let state = createSubmittedState();
+
+    const key = 'fantasy-team-1:week-1';
+
+    state = lineupReducer(state, selectPlayer('player-5'));
+    state = lineupReducer(state, saveDraft(timing));
+
+    state = lineupReducer(state, loadFantasyTeam(teamTwo));
+
+    expect(state.starterIds).toEqual([]);
+
+    state = lineupReducer(state, loadFantasyTeam(teamOne));
+
+    expect(state.starterIds).toEqual(['player-1', 'player-2', 'player-3', 'player-4']);
+
+    expect(state.savedStarterIds).toEqual(teamOne.rosterPlayerIds);
+    expect(state.workingDrafts[key]).toHaveLength(4);
+  });
+  it('clears the working draft after a successful submission', () => {
+    let state = createSubmittedState();
+
+    const key = 'fantasy-team-1:week-1';
+
+    state = lineupReducer(state, selectPlayer('player-5'));
+    state = lineupReducer(state, saveDraft(timing));
+
+    expect(state.workingDrafts[key]).toHaveLength(4);
+
+    // Restore the fifth starter and resubmit.
+    state = lineupReducer(state, selectPlayer('player-5'));
+    state = lineupReducer(state, submitCurrentLineup(timing));
+
+    expect(state.workingDrafts[key]).toBeUndefined();
+    expect(state.lineups[key].status).toBe('submitted');
+    expect(state.lineups[key].starterPlayerIds).toEqual(teamOne.rosterPlayerIds);
+    expect(state.err).toBe('');
+  });
 });

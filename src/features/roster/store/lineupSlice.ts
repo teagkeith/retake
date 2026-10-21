@@ -2,12 +2,13 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { FantasyLineup } from '../types/FantasyLineup';
 import { getLineupKey } from '../utils/getLineupKey';
 import { canEditLineup, saveLineupDraft, submitLineup } from '../utils/lineupLifecycle';
+import { validateLineupDraft } from '../utils/lineupValidation';
 
 interface LineupState {
   fantasyTeamId: string | null;
   scoringWeekId: string | null;
   rosterPlayerIds: string[];
-
+  workingDrafts: Record<string, string[]>;
   starterIds: string[];
   savedStarterIds: string[];
 
@@ -25,6 +26,7 @@ const initialState: LineupState = {
   savedStarterIds: [],
 
   lineups: {},
+  workingDrafts: {},
 
   err: '',
 };
@@ -101,7 +103,9 @@ export const lineupSlice = createSlice({
       const key = getLineupKey(fantasyTeamId, state.scoringWeekId);
       const existingLineup = state.lineups[key];
 
-      state.starterIds = existingLineup ? [...existingLineup.starterPlayerIds] : [];
+      const workingDraft = state.workingDrafts[key];
+
+      state.starterIds = [...(workingDraft ?? existingLineup?.starterPlayerIds ?? [])];
 
       state.savedStarterIds =
         existingLineup?.status === 'submitted' || existingLineup?.status === 'locked'
@@ -125,8 +129,9 @@ export const lineupSlice = createSlice({
       const key = getLineupKey(state.fantasyTeamId, scoringWeekId);
       const savedLineup = state.lineups[key];
 
-      state.starterIds = savedLineup ? [...savedLineup.starterPlayerIds] : [];
+      const workingDraft = state.workingDrafts[key];
 
+      state.starterIds = [...(workingDraft ?? savedLineup?.starterPlayerIds ?? [])];
       state.savedStarterIds =
         savedLineup?.status === 'submitted' || savedLineup?.status === 'locked'
           ? [...savedLineup.starterPlayerIds]
@@ -134,6 +139,7 @@ export const lineupSlice = createSlice({
 
       state.err = '';
     },
+
     saveDraft: (
       state,
       action: PayloadAction<{
@@ -160,20 +166,37 @@ export const lineupSlice = createSlice({
       };
 
       try {
-        state.lineups[key] = saveLineupDraft(
-          lineup,
-          state.rosterPlayerIds,
-          state.starterIds,
-          action.payload.scoringWeekStartsAt,
-          action.payload.currentTime,
-        );
+        if (
+          !canEditLineup(lineup, action.payload.scoringWeekStartsAt, action.payload.currentTime)
+        ) {
+          throw new Error('Lineup can no longer be edited.');
+        }
+
+        if (!validateLineupDraft(state.rosterPlayerIds, state.starterIds)) {
+          throw new Error(
+            'Invalid lineup draft: check player count, roster inclusion, and duplicates.',
+          );
+        }
+
+        // Save the working selection independently.
+        state.workingDrafts[key] = [...state.starterIds];
+
+        // Create a draft record only if no official lineup exists yet.
+        if (!existingLineup) {
+          state.lineups[key] = saveLineupDraft(
+            lineup,
+            state.rosterPlayerIds,
+            state.starterIds,
+            action.payload.scoringWeekStartsAt,
+            action.payload.currentTime,
+          );
+        }
 
         state.err = '';
       } catch (error) {
         state.err = error instanceof Error ? error.message : 'Could not save lineup draft.';
       }
     },
-
     submitCurrentLineup: (
       state,
       action: PayloadAction<{
@@ -210,6 +233,7 @@ export const lineupSlice = createSlice({
 
         state.lineups[key] = submittedLineup;
         state.savedStarterIds = [...submittedLineup.starterPlayerIds];
+        delete state.workingDrafts[key];
         state.err = '';
       } catch (error) {
         state.err = error instanceof Error ? error.message : 'Could not submit lineup.';
