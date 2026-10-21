@@ -1,13 +1,18 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { mockFantasyTeams } from './features/league/data/mockFantasyTeams';
-import { loadFantasyTeam } from './features/roster/store/lineupSlice';
-// Redux 
+
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { toggleStarter, saveLineup } from './features/roster/store/lineupSlice';
-import { selectRosterPlayerIds } from './features/roster/store/lineSelectors';
 
 import {
+  loadFantasyTeam,
+  selectScoringWeek,
+  toggleStarter,
+  submitCurrentLineup,
+} from './features/roster/store/lineupSlice';
+
+import {
+  selectRosterPlayerIds,
   selectStarterIds,
   selectLineupError,
   selectLineupMatch,
@@ -19,13 +24,17 @@ import OverviewPage from './features/dashboard/pages/OverviewPage';
 import RosterPage from './features/roster/components/RosterPage';
 import AppLayout from './layouts/AppLayout';
 
+const activeScoringWeek = {
+  id: 'week-1',
+  startsAt: '2027-01-01T18:00:00Z',
+};
+
 function App() {
   const [activeTab, setActiveTab] = useState<'overview' | 'roster'>('overview');
 
   const dispatch = useAppDispatch();
   const starterIds = useAppSelector(selectStarterIds);
   const err = useAppSelector(selectLineupError);
-
 
   const lineupMatch = useAppSelector(selectLineupMatch);
 
@@ -43,6 +52,8 @@ function App() {
         rosterPlayerIds: fantasyTeam.rosterPlayerIds,
       }),
     );
+
+    dispatch(selectScoringWeek(activeScoringWeek.id));
   }, [dispatch]);
 
   return (
@@ -52,8 +63,23 @@ function App() {
         {activeTab === 'roster' && (
           <RosterPage
             starterIds={starterIds}
-            toggleStarter={(playerId) => dispatch(toggleStarter(playerId))}
-            saveLineup={() => dispatch(saveLineup())}
+            toggleStarter={(playerId) =>
+              dispatch(
+                toggleStarter({
+                  playerId,
+                  scoringWeekStartsAt: activeScoringWeek.startsAt,
+                  currentTime: new Date().toISOString(),
+                }),
+              )
+            }
+            saveLineup={() =>
+              dispatch(
+                submitCurrentLineup({
+                  scoringWeekStartsAt: activeScoringWeek.startsAt,
+                  currentTime: new Date().toISOString(),
+                }),
+              )
+            }
             lineupMatch={lineupMatch}
             err={err}
             savedPlayers={savedPlayers}

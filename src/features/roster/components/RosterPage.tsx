@@ -55,7 +55,7 @@ function RosterPage({
             onClick={saveLineup}
             disabled={lineupMatch || starterIds.length !== 5}
           >
-            Save Lineup
+            Submit Lineup
           </button>
         </div>
 
