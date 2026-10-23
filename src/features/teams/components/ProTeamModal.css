@@ -1,0 +1,170 @@
+
+.proTeamModalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+  background: rgba(5, 6, 12, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+.proTeamModal {
+  width: 100%;
+  max-width: 680px;
+  max-height: min(85vh, 800px);
+  overflow-y: auto;
+
+  border: 1px solid #403568;
+  border-radius: 16px;
+  background: #171421;
+  color: #ffffff;
+
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  animation: proTeamModalEnter 0.2s ease-out;
+}
+
+.proTeamModalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+
+  padding: 28px;
+  border-bottom: 1px solid #383248;
+}
+
+.proTeamModalIdentity {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.proTeamModalIdentity .proTeamBadge {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.proTeamModalIdentity h2 {
+  margin: 0 0 8px;
+  font-size: 1.6rem;
+}
+
+.proTeamModalIdentity p {
+  margin: 0;
+  color: #b7a7ff;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.proTeamModalClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 36px;
+  height: 36px;
+  padding: 0;
+
+  border: 1px solid #403568;
+  border-radius: 8px;
+  background: #262039;
+  color: #ffffff;
+
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.proTeamModalClose:hover {
+  background: #403568;
+}
+
+.proTeamModalClose:focus-visible {
+  outline: 2px solid #b7a7ff;
+  outline-offset: 3px;
+}
+
+.proTeamModalBody {
+  padding: 28px;
+}
+
+.proTeamModalBody h3 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+
+.proTeamModalBody > p {
+  margin: 0 0 24px;
+  color: #a3a0b3;
+  font-size: 0.9rem;
+}
+
+.proTeamModalPlayers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.proTeamModalPlayer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 18px;
+  border: 1px solid #383248;
+  border-radius: 10px;
+  background: #201b30;
+}
+
+.proTeamModalPlayer strong {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.proTeamModalPlayer span {
+  color: #a3a0b3;
+  font-size: 0.8rem;
+}
+
+@keyframes proTeamModalEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 650px) {
+  .proTeamModalBackdrop {
+    padding: 12px;
+  }
+
+  .proTeamModalHeader,
+  .proTeamModalBody {
+    padding: 20px;
+  }
+
+  .proTeamModalPlayer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proTeamModal {
+    animation: none;
+  }
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { type FantasyPlayer, fetchFantasyTeam } from './features/league/api/fantasyTeamApi';
 import { fetchSavedLineup, saveLineup } from './features/roster/api/lineupApi';
+import ProTeamsPage from './features/teams/pages/ProTeamsPage';
 import {
   selectDraftSaved,
   selectIsLineupFinalized,
@@ -30,7 +31,7 @@ const activeScoringWeek = {
 };
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'roster'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'roster' | 'teams'>('overview');
   const [teamLoading, setTeamLoading] = useState(true);
   const [teamError, setTeamError] = useState('');
   const [teamPlayers, setTeamPlayers] = useState<FantasyPlayer[]>([]);
@@ -154,6 +155,7 @@ function App() {
         {activeTab === 'roster' && teamLoading && (
           <p role="status">Loading your fantasy roster...</p>
         )}
+        {activeTab === 'teams' && <ProTeamsPage />}
 
         {activeTab === 'roster' && !teamLoading && teamError && <p role="alert">{teamError}</p>}
 

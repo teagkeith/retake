@@ -6,6 +6,8 @@ import { getDeadlockMatch } from './integrations/deadlock/deadlockApi.js';
 import { prisma } from './lib/prisma.js';
 import { validateDraft, validateSubmission } from './services/lineupValidation.js';
 
+import { getLatestObservedRoster } from './services/proTeamRosterService.js';
+
 const app = express();
 const PORT = 3001;
 
@@ -95,6 +97,47 @@ app.get('/api/teams/:teamId', async (req, res) => {
 });
 
 
+// Retrieve professional esports teams
+app.get('/api/pro-teams', async (req, res) => {
+  try {
+    const gameId = req.query.gameId;
+
+    if (typeof gameId !== 'string' || !gameId.trim()) {
+      res.status(400).json({
+        error: 'A valid gameId query parameter is required',
+      });
+      return;
+    }
+
+    const teams = await prisma.proTeam.findMany({
+      where: {
+        gameId,
+      },
+      select: {
+        id: true,
+        name: true,
+        shortName: true,
+        region: true,
+        logoUrl: true,
+      },
+      orderBy: {
+        name: 'asc',
+      },
+      take: 50,
+    });
+
+    res.json(teams);
+  } catch (error) {
+    console.error('Failed to retrieve professional teams:', error);
+
+    res.status(500).json({
+      error: 'Could not retrieve professional teams',
+    });
+  }
+});
+
+
+
 // Retrieve a professional esports team and its roster
 app.get('/api/pro-teams/:teamId', async (req, res) => {
   try {
@@ -129,6 +172,8 @@ app.get('/api/pro-teams/:teamId', async (req, res) => {
       });
       return;
     }
+    const currentTeamObservations = await getLatestObservedRoster(team.id);
+        
 
     res.json({
       id: team.id,
@@ -145,7 +190,7 @@ app.get('/api/pro-teams/:teamId', async (req, res) => {
         leftAt: membership.leftAt,
       })),
 
-      observedPlayers: team.playerObservations.map((observation) => ({
+      observedPlayers: currentTeamObservations.map((observation) => ({
         id: observation.player.id,
         displayName: observation.player.displayName,
         verified: observation.player.verified,

@@ -1,13 +1,12 @@
-import type { ReactNode } from 'react';
 
 interface AppLayoutProps {
-  children: ReactNode;
-  activeTab: 'overview' | 'roster';
-  onTabChange: (tab: 'overview' | 'roster') => void;
+  activeTab: 'overview' | 'roster' | 'teams';
+  onTabChange: (tab: 'overview' | 'roster' | 'teams') => void;
+  children: React.ReactNode;
 }
 
 function AppLayout({ children, activeTab, onTabChange }: AppLayoutProps) {
-  const tabs: ('overview' | 'roster')[] = ['overview', 'roster'];
+  const tabs: AppLayoutProps['activeTab'][] = ['overview', 'roster', 'teams'];
 
   return (
     <div className="appLayout">
