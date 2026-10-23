@@ -1,10 +1,6 @@
 import './RosterPage.css';
-import PlayerCard from '../components/PlayerCard';
-import { mockProPlayers } from '../../players/data/mockProPlayers';
-import { mockProTeams } from '../../players/data/mockProTeams';
-import { mockPlayerPerformances } from '../../players/data/mockPlayerPerformances';
-import { buildPlayerCardData } from '../../players/utils/buildPlayerCardData';
-import type { PlayerCardData } from '../utils/toPlayerCardData';
+import type { FantasyPlayer } from '../../league/api/fantasyTeamApi';
+import PlayerCard from './PlayerCard';
 
 interface RosterPageProps {
   rosterPlayerIds: string[];
@@ -14,16 +10,12 @@ interface RosterPageProps {
   saveLineup: () => void;
   lineupMatch: boolean;
   err: string;
-  savedPlayers: PlayerCardData[];
+  savedStarterIds: string[];
   draftSaved: boolean;
   isLineupLocked: boolean;
+  teamPlayers: FantasyPlayer[];
+  isLineupFinalized: boolean;
 }
-const rosterPlayers = buildPlayerCardData(
-  mockProPlayers,
-  mockProTeams,
-  mockPlayerPerformances,
-  'week-1',
-);
 
 function RosterPage({
   starterIds,
@@ -32,12 +24,29 @@ function RosterPage({
   saveLineup,
   lineupMatch,
   err,
-  savedPlayers,
+  savedStarterIds,
   rosterPlayerIds,
   draftSaved,
   isLineupLocked,
+  teamPlayers,
+  isLineupFinalized,
 }: RosterPageProps) {
-  const ownedPlayers = rosterPlayers.filter((player) => rosterPlayerIds.includes(player.id));
+  const ownedPlayers = teamPlayers
+    .filter((player) => rosterPlayerIds.includes(player.id))
+    .map((player) => ({
+      id: player.id,
+      name: player.displayName,
+      team: 'Unassigned',
+      role: 'Unknown',
+      kills: null,
+      deaths: null,
+      assists: null,
+      fantasyPoints: null,
+    }));
+  const savedLineupPlayers = savedStarterIds
+    .map((id) => ownedPlayers.find((player) => player.id === id))
+    .filter((player) => player !== undefined);
+
   return (
     <div className="rosterPage">
       {/* Page Header */}
@@ -54,13 +63,17 @@ function RosterPage({
       <section className="lineupManager">
         <div className="lineupManagerHeader">
           <h2>Starting Lineup</h2>
-
+          {isLineupFinalized && (
+            <p className="lineup-status">
+              This lineup is locked because the scoring deadline has passed.
+            </p>
+          )}
           <div className="lineupActions">
             <button
               type="button"
               className="saveDraftButton"
               onClick={saveDraft}
-              disabled={isLineupLocked}
+              disabled={isLineupFinalized}
             >
               Save Draft
             </button>
@@ -68,7 +81,9 @@ function RosterPage({
             <button
               type="button"
               onClick={saveLineup}
-              disabled={isLineupLocked || lineupMatch || starterIds.length !== 5}
+              disabled={
+                isLineupLocked || isLineupFinalized || lineupMatch || starterIds.length !== 5
+              }
             >
               Submit Lineup
             </button>
@@ -89,7 +104,7 @@ function RosterPage({
           />
         </div>
 
-        {isLineupLocked && savedPlayers.length === 5 ? (
+        {isLineupLocked && savedLineupPlayers.length === 5 ? (
           <p className="status-saved">Scoring week locked. Your submitted lineup is final.</p>
         ) : isLineupLocked ? (
           <p className="status-warning">
@@ -97,7 +112,7 @@ function RosterPage({
           </p>
         ) : draftSaved ? (
           <p className="status-saved">Draft saved successfully</p>
-        ) : lineupMatch && savedPlayers.length === 5 ? (
+        ) : lineupMatch && savedLineupPlayers.length === 5 ? (
           <p className="status-saved">Lineup submitted and up to date</p>
         ) : starterIds.length < 5 ? (
           <p className="status-incomplete">
@@ -122,28 +137,22 @@ function RosterPage({
             <p>Your currently committed lineup</p>
           </div>
 
-          <span className="savedLineupCount">{savedPlayers.length} / 5</span>
+          <span className="savedLineupCount">{savedLineupPlayers.length} / 5</span>
         </header>
 
         <div className="savedLineupPlayers">
-          {savedPlayers.length > 0 ? (
-            savedPlayers.map((player) => (
-              <div className="savedPlayer" key={player.id}>
-                <div className="savedPlayerIdentity">
-                  <p className="savedPlayerName">{player.name}</p>
-                  <p className="savedPlayerTeam">{player.team}</p>
-                </div>
-
-                <span className="savedPlayerPoints">
-                  {player.fantasyPoints === null ? '—' : `${player.fantasyPoints} PTS`}
-                </span>
+          {savedLineupPlayers.map((player) => (
+            <div className="savedPlayer" key={player.id}>
+              <div className="savedPlayerIdentity">
+                <p className="savedPlayerName">{player.name}</p>
+                <p className="savedPlayerTeam">{player.team}</p>
               </div>
-            ))
-          ) : (
-            <p className="savedLineupEmpty">
-              No lineup saved yet. Select five starters and save your lineup.
-            </p>
-          )}
+
+              <span className="savedPlayerPoints">
+                {player.fantasyPoints === null ? '—' : `${player.fantasyPoints} PTS`}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -154,8 +163,12 @@ function RosterPage({
             key={player.id}
             player={player}
             isStarter={starterIds.includes(player.id)}
-            onToggleStarter={() => toggleStarter(player.id)}
-            disabled={isLineupLocked}
+            onToggleStarter={() => {
+              if (!isLineupFinalized) {
+                toggleStarter(player.id);
+              }
+            }}
+            disabled={isLineupFinalized || isLineupLocked}
           />
         ))}
       </section>

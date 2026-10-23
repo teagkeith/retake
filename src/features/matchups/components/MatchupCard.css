@@ -11,14 +11,14 @@
   gap: var(--space-5);
   height: 100%;
 
-   background: linear-gradient(
+  background: linear-gradient(
     155deg,
     #25203b 0%,
     var(--color-surface) 50%,
     var(--color-surface) 100%
   );
 }
-.matchupEyebrow{
+.matchupEyebrow {
   letter-spacing: 0.1em;
   color: var(--color-accent);
 }
@@ -113,7 +113,6 @@
   align-items: center;
   justify-content: center;
 }
-
 
 .homeAvatar {
   background: linear-gradient(135deg, #514183, #24194d);

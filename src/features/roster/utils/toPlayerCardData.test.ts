@@ -1,9 +1,7 @@
-import { describe, it, expect } from 'vitest';
-import { toPlayerCardData } from './toPlayerCardData';
+import { describe, expect, it } from 'vitest';
+import type { PlayerPerformance } from '../../players/types/PlayerPerformance';
 import type { ProPlayer } from '../../players/types/ProPlayer';
-import type { PlayerPerformance } from '../types/PlayerPerformance';
-;
-
+import { toPlayerCardData } from '../../players/utils/toPlayerCardData';
 describe('Player Card Adapter', () => {
   const player: ProPlayer = {
     id: 'player-1',
@@ -44,7 +42,8 @@ describe('Player Card Adapter', () => {
     expect(result.deaths).toBe(12);
     expect(result.assists).toBe(8);
     expect(result.fantasyPoints).toBe(65.5);
-  });it('preserves zero fantasy points', () => {
+  });
+  it('preserves zero fantasy points', () => {
     const result = toPlayerCardData(player, zeroPerformance, 'Nova Esports');
 
     expect(result.fantasyPoints).toBe(0);

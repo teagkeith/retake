@@ -1,0 +1,15 @@
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/generated/
+**/coverage/
+**/.env
+**/.env.*
+**/certs/
+server/prisma/
+**/package-lock.json
+**/skills-lock.json
+**/.agents/
+**/.claude/
+**/.windsurf/
+.VSCodeCounter/

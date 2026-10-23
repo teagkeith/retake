@@ -24,8 +24,6 @@ export function validateLineupDraft(
   return areAllStartersInRoster;
 }
 
-
-
 export function validateLineupSubmission(
   rosterPlayerIds: string[],
   starterPlayerIds: string[],

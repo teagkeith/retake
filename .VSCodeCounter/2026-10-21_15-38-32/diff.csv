@@ -1,0 +1,70 @@
+"filename", "language", "TypeScript", "PostCSS", "TypeScript JSX", "JSON with Comments", "JSON", "JavaScript", "XML", "Markdown", "HTML", "PowerShell", "comment", "blank", "total"
+"c:\Projects\rotate\.prettierrc.json", "JSON", 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 1, 8
+"c:\Projects\rotate\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 7, 15
+"c:\Projects\rotate\eslint.config.js", "JavaScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 2, 23
+"c:\Projects\rotate\index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 1, 14
+"c:\Projects\rotate\package-lock.json", "JSON", 0, 0, 0, 0, 3237, 0, 0, 0, 0, 0, 0, 1, 3238
+"c:\Projects\rotate\package.json", "JSON", 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 41
+"c:\Projects\rotate\public\favicon.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Projects\rotate\public\icons.svg", "XML", 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 1, 25
+"c:\Projects\rotate\scripts\checkpoint.ps1", "PowerShell", 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 0, 14, 42
+"c:\Projects\rotate\src\App.css", "PostCSS", 0, 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 86
+"c:\Projects\rotate\src\App.tsx", "TypeScript JSX", 0, 0, 135, 0, 0, 0, 0, 0, 0, 0, 0, 30, 165
+"c:\Projects\rotate\src\app\hooks.ts", "TypeScript", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 6
+"c:\Projects\rotate\src\app\store.ts", "TypeScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 15
+"c:\Projects\rotate\src\features\auth\types\User.ts", "TypeScript", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6
+"c:\Projects\rotate\src\features\dashboard\components\StatCard.css", "PostCSS", 0, 75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 92
+"c:\Projects\rotate\src\features\dashboard\components\StatCard.tsx", "TypeScript JSX", 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 4, 31
+"c:\Projects\rotate\src\features\dashboard\pages\OverviewPage.tsx", "TypeScript JSX", 0, 0, 79, 0, 0, 0, 0, 0, 0, 0, 0, 7, 86
+"c:\Projects\rotate\src\features\dashboard\pages\Overviewpage.css", "PostCSS", 0, 79, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 100
+"c:\Projects\rotate\src\features\league\api\fantasyTeamApi.ts", "TypeScript", 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 19
+"c:\Projects\rotate\src\features\league\components\StandingsCard.css", "PostCSS", 0, 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 66
+"c:\Projects\rotate\src\features\league\components\StandingsCard.tsx", "TypeScript JSX", 0, 0, 97, 0, 0, 0, 0, 0, 0, 0, 0, 7, 104
+"c:\Projects\rotate\src\features\league\data\mockFantasyTeams.ts", "TypeScript", 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 20
+"c:\Projects\rotate\src\features\league\types\FantasyLeague.ts", "TypeScript", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 12
+"c:\Projects\rotate\src\features\league\types\FantasyTeam.ts", "TypeScript", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7
+"c:\Projects\rotate\src\features\league\types\ScoringWeek.ts", "TypeScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Projects\rotate\src\features\matchups\components\MatchupCard.css", "PostCSS", 0, 180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 211
+"c:\Projects\rotate\src\features\matchups\components\MatchupCard.tsx", "TypeScript JSX", 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 0, 6, 71
+"c:\Projects\rotate\src\features\matchups\types\FantasyMatchup.ts", "TypeScript", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 13
+"c:\Projects\rotate\src\features\players\data\mockPlayerData.test.ts", "TypeScript", 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 55
+"c:\Projects\rotate\src\features\players\data\mockPlayerPerformances.ts", "TypeScript", 75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 80
+"c:\Projects\rotate\src\features\players\data\mockProPlayers.ts", "TypeScript", 67, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 69
+"c:\Projects\rotate\src\features\players\data\mockProTeams.ts", "TypeScript", 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 55
+"c:\Projects\rotate\src\features\players\types\PlayerPerformance.ts", "TypeScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 10
+"c:\Projects\rotate\src\features\players\types\ProPlayer.ts", "TypeScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Projects\rotate\src\features\players\types\ProTeam.ts", "TypeScript", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9
+"c:\Projects\rotate\src\features\players\utils\buildPlayerCardData.test.ts", "TypeScript", 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 40
+"c:\Projects\rotate\src\features\players\utils\buildPlayerCardData.ts", "TypeScript", 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 29
+"c:\Projects\rotate\src\features\players\utils\getProTeamById.test.ts", "TypeScript", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 17
+"c:\Projects\rotate\src\features\players\utils\getProTeamById.ts", "TypeScript", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 6
+"c:\Projects\rotate\src\features\players\utils\toPlayerCarData.test.ts", "TypeScript", 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 69
+"c:\Projects\rotate\src\features\players\utils\toPlayerCardData.ts", "TypeScript", 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 33
+"c:\Projects\rotate\src\features\roster\components\PlayerCard.css", "PostCSS", 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 108
+"c:\Projects\rotate\src\features\roster\components\PlayerCard.tsx", "TypeScript JSX", 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 5, 41
+"c:\Projects\rotate\src\features\roster\components\RosterPage.css", "PostCSS", 0, 247, 0, 0, 0, 0, 0, 0, 0, 0, 26, 75, 348
+"c:\Projects\rotate\src\features\roster\components\RosterPage.tsx", "TypeScript JSX", 0, 0, 147, 0, 0, 0, 0, 0, 0, 0, 4, 16, 167
+"c:\Projects\rotate\src\features\roster\data\mockPlayerPerformances.ts", "TypeScript", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 14
+"c:\Projects\rotate\src\features\roster\data\mockProPlayer.test.ts", "TypeScript", 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 37
+"c:\Projects\rotate\src\features\roster\data\mockProPlayers.ts", "TypeScript", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 13
+"c:\Projects\rotate\src\features\roster\store\lineSelectors.ts", "TypeScript", 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 56
+"c:\Projects\rotate\src\features\roster\store\lineupSlice.test.ts", "TypeScript", 266, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 91, 365
+"c:\Projects\rotate\src\features\roster\store\lineupSlice.ts", "TypeScript", 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 48, 290
+"c:\Projects\rotate\src\features\roster\types\FantasyLineup.ts", "TypeScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Projects\rotate\src\features\roster\types\PlayerPerformance.ts", "TypeScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9
+"c:\Projects\rotate\src\features\roster\utils\getLineupKey.ts", "TypeScript", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"c:\Projects\rotate\src\features\roster\utils\lineupLifeCycle.test.ts", "TypeScript", 197, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 35, 232
+"c:\Projects\rotate\src\features\roster\utils\lineupLifecycle.ts", "TypeScript", 73, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 88
+"c:\Projects\rotate\src\features\roster\utils\lineupValidation.test.ts", "TypeScript", 38, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 47
+"c:\Projects\rotate\src\features\roster\utils\lineupValidation.ts", "TypeScript", 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 35
+"c:\Projects\rotate\src\features\roster\utils\toPlayerCardData.test.ts", "TypeScript", 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 64
+"c:\Projects\rotate\src\features\roster\utils\toPlayerCardData.ts", "TypeScript", 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 32
+"c:\Projects\rotate\src\index.css", "PostCSS", 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 48, 6, 69
+"c:\Projects\rotate\src\layouts\AppLayout.tsx", "TypeScript JSX", 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 5, 41
+"c:\Projects\rotate\src\main.tsx", "TypeScript JSX", 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 2, 4, 20
+"c:\Projects\rotate\src\styles\variables.css", "PostCSS", 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 3, 6, 33
+"c:\Projects\rotate\tsconfig.app.json", "JSON", 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 2, 3, 27
+"c:\Projects\rotate\tsconfig.json", "JSON with Comments", 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 1, 8
+"c:\Projects\rotate\tsconfig.node.json", "JSON", 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 2, 3, 24
+"c:\Projects\rotate\vite.config.ts", "TypeScript", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 14
+"Total", "-", 1559, 835, 636, 7, 3326, 21, 25, 8, 13, 28, 103, 647, 7208

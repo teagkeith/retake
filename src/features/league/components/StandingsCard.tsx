@@ -87,7 +87,7 @@ function StandingsCard() {
                 <td className="teamName">
                   {team.name}
                   {isCurrentTeam && <span className="currentTeamLabel">YOU</span>}
-                  </td>
+                </td>
                 <td className="winLoss">
                   {team.wins} - {team.losses}
                 </td>
