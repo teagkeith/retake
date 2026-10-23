@@ -41,15 +41,15 @@ The goal is to make fantasy esports feel like a natural extension of the competi
 
 ## Tech stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | React, TypeScript, Vite |
-| State management | Redux Toolkit |
-| Backend | Node.js, Express, TypeScript |
-| Database | MySQL (Aiven) |
-| ORM | Prisma |
-| Testing | Vitest |
-| Development tooling | VS Code, Prettier, Git |
+| Layer               | Technology                   |
+| ------------------- | ---------------------------- |
+| Frontend            | React, TypeScript, Vite      |
+| State management    | Redux Toolkit                |
+| Backend             | Node.js, Express, TypeScript |
+| Database            | MySQL (Aiven)                |
+| ORM                 | Prisma                       |
+| Testing             | Vitest                       |
+| Development tooling | VS Code, Prettier, Git       |
 
 The application is organized into a frontend and a separate API server.
 
@@ -185,15 +185,15 @@ The development frontend communicates with the Express API on port `3001`.
 
 The backend exposes development endpoints for retrieving fantasy teams, managing lineups, and integrating Deadlock match data.
 
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/health` | API health check |
-| GET | `/api/teams/:teamId` | Retrieve a fantasy team and its roster |
-| GET | `/api/lineups` | Retrieve lineup records |
-| GET | `/api/lineups/:fantasyTeamId/:scoringWeekId` | Retrieve a specific saved lineup |
-| POST | `/api/lineups` | Save a draft or submit a lineup |
-| GET | `/api/deadlock/matches/:matchId` | Retrieve raw Deadlock match data |
-| GET | `/api/deadlock/matches/:matchId/summary` | Retrieve normalized match statistics |
+| Method | Endpoint                                     | Description                            |
+| ------ | -------------------------------------------- | -------------------------------------- |
+| GET    | `/api/health`                                | API health check                       |
+| GET    | `/api/teams/:teamId`                         | Retrieve a fantasy team and its roster |
+| GET    | `/api/lineups`                               | Retrieve lineup records                |
+| GET    | `/api/lineups/:fantasyTeamId/:scoringWeekId` | Retrieve a specific saved lineup       |
+| POST   | `/api/lineups`                               | Save a draft or submit a lineup        |
+| GET    | `/api/deadlock/matches/:matchId`             | Retrieve raw Deadlock match data       |
+| GET    | `/api/deadlock/matches/:matchId/summary`     | Retrieve normalized match statistics   |
 
 These endpoints are intended for local development and are not yet protected by production-ready authentication and authorization.
 
@@ -203,13 +203,7 @@ These endpoints are intended for local development and are not yet protected by 
 {
   "fantasyTeamId": "fantasy-team-1",
   "scoringWeekId": "week-1",
-  "starterPlayerIds": [
-    "player-1",
-    "player-2",
-    "player-3",
-    "player-4",
-    "player-5"
-  ],
+  "starterPlayerIds": ["player-1", "player-2", "player-3", "player-4", "player-5"],
   "action": "submit"
 }
 ```
