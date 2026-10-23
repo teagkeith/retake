@@ -94,6 +94,77 @@ app.get('/api/teams/:teamId', async (req, res) => {
   }
 });
 
+
+// Retrieve a professional esports team and its roster
+app.get('/api/pro-teams/:teamId', async (req, res) => {
+  try {
+    const { teamId } = req.params;
+
+    const team = await prisma.proTeam.findUnique({
+      where: {
+        id: teamId,
+      },
+      
+      include: {
+        memberships: {
+          include: {
+            player: true,
+          },
+        },
+        playerObservations: {
+          include: {
+            player: true,
+          },
+          orderBy: {
+            observedAt: 'desc',
+          },
+        },
+      },
+
+    });
+
+    if (!team) {
+      res.status(404).json({
+        error: 'Professional team not found',
+      });
+      return;
+    }
+
+    res.json({
+      id: team.id,
+      name: team.name,
+      shortName: team.shortName,
+      region: team.region,
+      logoUrl: team.logoUrl,
+
+      players: team.memberships.map((membership) => ({
+        id: membership.player.id,
+        displayName: membership.player.displayName,
+        verified: membership.player.verified,
+        joinedAt: membership.joinedAt,
+        leftAt: membership.leftAt,
+      })),
+
+      observedPlayers: team.playerObservations.map((observation) => ({
+        id: observation.player.id,
+        displayName: observation.player.displayName,
+        verified: observation.player.verified,
+        source: observation.source,
+        observedAt: observation.observedAt,
+      })),
+
+    });
+  } catch (error) {
+    console.error('Failed to retrieve professional team:', error);
+
+    res.status(500).json({
+      error: 'Could not retrieve professional team',
+    });
+  }
+});
+
+
+
 // Retrieve raw Deadlock match data
 app.get('/api/deadlock/matches/:matchId', async (req, res) => {
   try {

@@ -97,28 +97,66 @@ model ProPlayer {
   gameId           String
   displayName      String
   externalPlayerId String?
+  externalSource   String?
   verified         Boolean  @default(false)
   createdAt        DateTime @default(now())
 
-  game           Game                  @relation(fields: [gameId], references: [id])
-  matchStats     PlayerMatchStats[]
-  fantasyRosters FantasyRosterPlayer[]
+  game             Game                  @relation(fields: [gameId], references: [id])
+  matchStats       PlayerMatchStats[]
+  fantasyRosters   FantasyRosterPlayer[]
+  teamMemberships  ProTeamMembership[]
+  teamObservations ProTeamObservation[]
 
-  @@unique([gameId, externalPlayerId])
+  @@unique([gameId, externalSource, externalPlayerId])
 }
 
 model ProTeam {
-  id        String   @id @default(cuid())
-  gameId    String
-  name      String
-  shortName String?
-  region    String?
-  logoUrl   String?
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             String   @id @default(cuid())
+  gameId         String
+  name           String
+  shortName      String?
+  region         String?
+  logoUrl        String?
+  active         Boolean  @default(true)
+  externalSource String?
+  externalId     String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
-  game Game @relation(fields: [gameId], references: [id])
+  game               Game                 @relation(fields: [gameId], references: [id])
+  memberships        ProTeamMembership[]
+  playerObservations ProTeamObservation[]
 
   @@unique([gameId, name])
+  @@unique([gameId, externalSource, externalId])
+}
+
+model ProTeamMembership {
+  id       String    @id @default(cuid())
+  playerId String
+  teamId   String
+  joinedAt DateTime?
+  leftAt   DateTime?
+
+  createdAt DateTime @default(now())
+
+  player ProPlayer @relation(fields: [playerId], references: [id])
+  team   ProTeam   @relation(fields: [teamId], references: [id])
+
+  @@index([playerId])
+  @@index([teamId])
+}
+
+model ProTeamObservation {
+  id         String   @id @default(cuid())
+  playerId   String
+  teamId     String
+  source     String
+  observedAt DateTime @default(now())
+
+  player ProPlayer @relation(fields: [playerId], references: [id])
+  team   ProTeam   @relation(fields: [teamId], references: [id])
+
+  @@index([playerId, observedAt])
+  @@index([teamId])
 }
