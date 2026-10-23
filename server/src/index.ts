@@ -1,16 +1,10 @@
-
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 import { Prisma } from '../generated/prisma/client.js';
-
-import { prisma } from './lib/prisma.js';
-import {
-  validateDraft,
-  validateSubmission,
-} from './services/lineupValidation.js';
-
-import { getDeadlockMatch } from './integrations/deadlock/deadlockApi.js';
 import { normalizeDeadlockMatch } from './integrations/deadlock/deadlockAdapter.js';
+import { getDeadlockMatch } from './integrations/deadlock/deadlockApi.js';
+import { prisma } from './lib/prisma.js';
+import { validateDraft, validateSubmission } from './services/lineupValidation.js';
 
 const app = express();
 const PORT = 3001;
@@ -80,9 +74,7 @@ app.get('/api/teams/:teamId', async (req, res) => {
       name: team.name,
 
       // Keep this for the existing Redux integration.
-      rosterPlayerIds: team.roster.map(
-        (entry) => entry.proPlayerId,
-      ),
+      rosterPlayerIds: team.roster.map((entry) => entry.proPlayerId),
 
       // Detailed player information from the database.
       players: team.roster.map((entry) => ({
@@ -153,12 +145,7 @@ app.get('/api/deadlock/matches/:matchId/summary', async (req, res) => {
 
 // Create or update a fantasy lineup
 app.post('/api/lineups', async (req, res) => {
-  const {
-    fantasyTeamId,
-    scoringWeekId,
-    starterPlayerIds,
-    action,
-  } = req.body ?? {};
+  const { fantasyTeamId, scoringWeekId, starterPlayerIds, action } = req.body ?? {};
 
   // Validate incoming request structure.
   if (
@@ -167,9 +154,7 @@ app.post('/api/lineups', async (req, res) => {
     typeof scoringWeekId !== 'string' ||
     !scoringWeekId.trim() ||
     !Array.isArray(starterPlayerIds) ||
-    !starterPlayerIds.every(
-      (id) => typeof id === 'string' && id.trim().length > 0,
-    ) ||
+    !starterPlayerIds.every((id) => typeof id === 'string' && id.trim().length > 0) ||
     (action !== 'draft' && action !== 'submit')
   ) {
     res.status(400).json({
@@ -218,9 +203,7 @@ app.post('/api/lineups', async (req, res) => {
       return;
     }
 
-    const rosterPlayerIds = team.roster.map(
-      (player) => player.proPlayerId,
-    );
+    const rosterPlayerIds = team.roster.map((player) => player.proPlayerId);
 
     // Validate selected players against roster ownership.
     const isValid =
@@ -230,8 +213,7 @@ app.post('/api/lineups', async (req, res) => {
 
     if (!isValid) {
       res.status(400).json({
-        error:
-          'Invalid lineup: check starter count, duplicates, and roster ownership',
+        error: 'Invalid lineup: check starter count, duplicates, and roster ownership',
       });
       return;
     }
@@ -266,12 +248,10 @@ app.post('/api/lineups', async (req, res) => {
           status: action === 'submit' ? 'submitted' : 'draft',
 
           // Only submitted players become official starters.
-          starterPlayerIds:
-            action === 'submit' ? starterPlayerIds : [],
+          starterPlayerIds: action === 'submit' ? starterPlayerIds : [],
 
           // Draft selections are stored separately.
-          draftPlayerIds:
-           action === 'draft' ? starterPlayerIds : Prisma.DbNull,
+          draftPlayerIds: action === 'draft' ? starterPlayerIds : Prisma.DbNull,
         },
         update:
           action === 'draft'

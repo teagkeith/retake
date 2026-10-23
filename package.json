@@ -10,8 +10,10 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "verify": "vitest run && npm run build && git status --short",
-    "checkpoint": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./scripts/checkpoint.ps1"
+    "verify": "npm run format:check && npm run lint && npm test && npm --prefix server test && npm run build && npm --prefix server run build",
+    "checkpoint": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./scripts/checkpoint.ps1",
+    "test": "vitest run",
+    "typecheck": "tsc -b"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",

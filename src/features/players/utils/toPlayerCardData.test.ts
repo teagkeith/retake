@@ -1,9 +1,7 @@
-import { describe, it, expect } from 'vitest';
-
-import { toPlayerCardData } from './toPlayerCardData';
-
-import type { ProPlayer } from '../types/ProPlayer';
+import { describe, expect, it } from 'vitest';
 import type { PlayerPerformance } from '../types/PlayerPerformance';
+import type { ProPlayer } from '../types/ProPlayer';
+import { toPlayerCardData } from './toPlayerCardData';
 
 describe('Player Card Adapter', () => {
   const player: ProPlayer = {

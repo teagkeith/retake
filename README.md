@@ -8,10 +8,42 @@ Build a roster, manage your starting lineup, compete in head-to-head matchups, a
 
 The goal is to make fantasy esports feel like a natural extension of the competitive gaming community.
 
+<<<<<<< ours
 > **Development status:** Early development. Core roster management and lineup persistence are functional, while player imports, fantasy scoring, and league management are still being built.
+=======
+Install the frontend and backend dependencies with `npm ci` and `npm --prefix server ci`.
+Run `npm run dev` for the frontend and `npm --prefix server run dev` for the API.
+The API requires the existing MySQL environment configuration and `server/certs/ca.pem`.
+
+Before compiling the backend, generate its ignored Prisma client from the existing schema:
+
+```sh
+cd server
+npx prisma generate --config prisma7.config.ts
+```
+
+This command requires `DATABASE_URL` in the environment; it does not apply migrations.
+
+## Maintenance Checks
+
+Run `npm run verify` from the repository root to check Prettier, ESLint, both test suites,
+and both production builds. `npm run typecheck` and `npm --prefix server run typecheck`
+also run the frontend and backend TypeScript checks individually.
+
+Use `npm run format` to apply formatting. Generated Prisma files, migrations, dependencies,
+build output, environment files, certificates, lockfiles, and bundled tooling metadata are
+excluded from formatting. Dependencies and lockfiles should be updated deliberately.
+
+Frontend and backend Vitest configurations select only their own source tests, including
+after a build. Player mocks still referenced by tests are fixtures; the overview and
+standings placeholder data remain part of the current UI.
+
+## Current Features
+>>>>>>> theirs
 
 ---
 
+<<<<<<< ours
 ## Features
 
 ### Currently implemented
@@ -348,3 +380,6 @@ As the platform grows, the goal is to support game-specific statistics, scoring 
 ## License
 
 No public license has been specified yet. All rights reserved unless a license is added to the repository.
+=======
+## Development Status
+>>>>>>> theirs

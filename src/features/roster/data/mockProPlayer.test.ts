@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest';
-
-import { mockProPlayers } from './mockProPlayers';
+import { toPlayerCardData } from '../../players/utils/toPlayerCardData';
 import { mockPlayerPerformances } from './mockPlayerPerformances';
-import { toPlayerCardData } from '../utils/toPlayerCardData';
+import { mockProPlayers } from './mockProPlayers';
 
 describe('Mock Player Data Integration', () => {
   it('combines Phantom with his Week 1 performance', () => {

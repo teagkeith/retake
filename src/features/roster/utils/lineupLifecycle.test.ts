@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { FantasyLineup } from '../types/FantasyLineup';
-import { canEditLineup, saveLineupDraft, submitLineup, lockLineup } from './lineupLifecycle';
+import { canEditLineup, lockLineup, saveLineupDraft, submitLineup } from './lineupLifecycle';
 
 const testLineup: FantasyLineup = {
   id: 'lineup-1',

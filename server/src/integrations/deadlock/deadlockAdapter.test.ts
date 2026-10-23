@@ -1,4 +1,3 @@
-
 import { describe, expect, it } from 'vitest';
 import { normalizeDeadlockMatch } from './deadlockAdapter.js';
 
@@ -49,8 +48,6 @@ describe('normalizeDeadlockMatch', () => {
       },
     };
 
-    expect(() =>
-      normalizeDeadlockMatch(122924457, invalidMatch),
-    ).toThrow();
+    expect(() => normalizeDeadlockMatch(122924457, invalidMatch)).toThrow();
   });
 });

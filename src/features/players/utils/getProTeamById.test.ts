@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getProTeamById } from './getProTeamById';
 import { mockProTeams } from '../data/mockProTeams';
+import { getProTeamById } from './getProTeamById';
 
 describe('Professional Team Lookup', () => {
   it('returns the correct team for a valid ID', () => {

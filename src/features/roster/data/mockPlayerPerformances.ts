@@ -1,4 +1,4 @@
-import type { PlayerPerformance } from '../types/PlayerPerformance';
+import type { PlayerPerformance } from '../../players/types/PlayerPerformance';
 
 export const mockPlayerPerformances: PlayerPerformance[] = [
   {

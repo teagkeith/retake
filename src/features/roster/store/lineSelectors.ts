@@ -7,7 +7,6 @@ export const selectSavedStarterIds = (state: RootState) => state.lineup.savedSta
 
 export const selectLineupError = (state: RootState) => state.lineup.err;
 
-
 export const selectLineupMatch = (state: RootState) => {
   const { starterIds, savedStarterIds } = state.lineup;
 
@@ -17,14 +16,10 @@ export const selectLineupMatch = (state: RootState) => {
   );
 };
 
-
-
 export const selectRosterPlayerIds = (state: RootState) => state.lineup.rosterPlayerIds;
 
-
 export const selectDraftSaved = (state: RootState): boolean => {
-  const { fantasyTeamId, scoringWeekId, starterIds, workingDrafts } =
-    state.lineup;
+  const { fantasyTeamId, scoringWeekId, starterIds, workingDrafts } = state.lineup;
 
   if (!fantasyTeamId || !scoringWeekId) {
     return false;
@@ -38,12 +33,9 @@ export const selectDraftSaved = (state: RootState): boolean => {
   }
 
   return (
-    starterIds.length === savedDraft.length &&
-    starterIds.every((id) => savedDraft.includes(id))
+    starterIds.length === savedDraft.length && starterIds.every((id) => savedDraft.includes(id))
   );
 };
-
-
 
 export const selectIsLineupFinalized = (state: RootState) => {
   const { fantasyTeamId, scoringWeekId, lineups } = state.lineup;

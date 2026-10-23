@@ -1,15 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { validateDraft, validateSubmission } from './lineupValidation.js';
 
-const roster = [
-  'player-1',
-  'player-2',
-  'player-3',
-  'player-4',
-  'player-5',
-  'player-6',
-  'player-7',
-];
+const roster = ['player-1', 'player-2', 'player-3', 'player-4', 'player-5', 'player-6', 'player-7'];
 
 describe('Draft validation', () => {
   it('accepts an incomplete draft', () => {
@@ -44,25 +36,13 @@ describe('Submission validation', () => {
 
   it('rejects duplicate starters', () => {
     expect(
-      validateSubmission(roster, [
-        'player-1',
-        'player-2',
-        'player-3',
-        'player-4',
-        'player-4',
-      ]),
+      validateSubmission(roster, ['player-1', 'player-2', 'player-3', 'player-4', 'player-4']),
     ).toBe(false);
   });
 
   it('rejects unowned players', () => {
     expect(
-      validateSubmission(roster, [
-        'player-1',
-        'player-2',
-        'player-3',
-        'player-4',
-        'player-8',
-      ]),
+      validateSubmission(roster, ['player-1', 'player-2', 'player-3', 'player-4', 'player-8']),
     ).toBe(false);
   });
 });

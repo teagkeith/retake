@@ -1,6 +1,6 @@
 import './RosterPage.css';
-import PlayerCard from '../components/PlayerCard';
 import type { FantasyPlayer } from '../../league/api/fantasyTeamApi';
+import PlayerCard from './PlayerCard';
 
 interface RosterPageProps {
   rosterPlayerIds: string[];
@@ -16,12 +16,6 @@ interface RosterPageProps {
   teamPlayers: FantasyPlayer[];
   isLineupFinalized: boolean;
 }
-// const rosterPlayers = buildPlayerCardData(
-//   mockProPlayers,
-//   mockProTeams,
-//   mockPlayerPerformances,
-//   'week-1',
-// );
 
 function RosterPage({
   starterIds,
@@ -38,26 +32,20 @@ function RosterPage({
   isLineupFinalized,
 }: RosterPageProps) {
   const ownedPlayers = teamPlayers
-  .filter((player) => rosterPlayerIds.includes(player.id))
-  .map((player) => ({
-    id: player.id,
-    name: player.displayName,
-    team: 'Unassigned',
-    role: 'Unknown',
-    kills: null,
-    deaths: null,
-    assists: null,
-    fantasyPoints: null,
-  }));
+    .filter((player) => rosterPlayerIds.includes(player.id))
+    .map((player) => ({
+      id: player.id,
+      name: player.displayName,
+      team: 'Unassigned',
+      role: 'Unknown',
+      kills: null,
+      deaths: null,
+      assists: null,
+      fantasyPoints: null,
+    }));
   const savedLineupPlayers = savedStarterIds
-  .map((id) => ownedPlayers.find((player) => player.id === id))
-  .filter((player) => player !== undefined);
-  console.log('Roster state:', {
-  isLineupFinalized,
-  draftSaved,
-  lineupMatch,
-  starterIds,
-});
+    .map((id) => ownedPlayers.find((player) => player.id === id))
+    .filter((player) => player !== undefined);
 
   return (
     <div className="rosterPage">
@@ -94,10 +82,7 @@ function RosterPage({
               type="button"
               onClick={saveLineup}
               disabled={
-                isLineupLocked ||
-                isLineupFinalized ||
-                lineupMatch ||
-                starterIds.length !== 5
+                isLineupLocked || isLineupFinalized || lineupMatch || starterIds.length !== 5
               }
             >
               Submit Lineup
@@ -164,9 +149,7 @@ function RosterPage({
               </div>
 
               <span className="savedPlayerPoints">
-                {player.fantasyPoints === null
-                  ? '—'
-                  : `${player.fantasyPoints} PTS`}
+                {player.fantasyPoints === null ? '—' : `${player.fantasyPoints} PTS`}
               </span>
             </div>
           ))}

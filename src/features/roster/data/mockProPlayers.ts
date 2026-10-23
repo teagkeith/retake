@@ -1,4 +1,4 @@
-import type { ProPlayer } from "../../players/types/ProPlayer";
+import type { ProPlayer } from '../../players/types/ProPlayer';
 
 export const mockProPlayers: ProPlayer[] = [
   {

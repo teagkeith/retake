@@ -1,4 +1,3 @@
-
 export interface SavedLineupResponse {
   id: string;
   fantasyTeamId: string;
@@ -30,7 +29,6 @@ export async function fetchSavedLineup(
   return response.json();
 }
 
-
 export interface SaveLineupRequest {
   fantasyTeamId: string;
   scoringWeekId: string;
@@ -38,9 +36,7 @@ export interface SaveLineupRequest {
   action: 'draft' | 'submit';
 }
 
-export async function saveLineup(
-  request: SaveLineupRequest,
-): Promise<SavedLineupResponse> {
+export async function saveLineup(request: SaveLineupRequest): Promise<SavedLineupResponse> {
   const response = await fetch('http://localhost:3001/api/lineups', {
     method: 'POST',
     headers: {
@@ -72,4 +68,3 @@ export async function saveLineup(
 
   return result.lineup;
 }
-
