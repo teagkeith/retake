@@ -1,4 +1,3 @@
-
 import 'dotenv/config';
 
 import { getValorantPlayers } from '../integrations/valorant/valorantApi.js';
@@ -39,14 +38,13 @@ async function main() {
     console.log(`Imported: ${savedPlayer.displayName}`);
     imported++;
 
-const observation = normalizeTeamObservation(rawPlayer);
+    const observation = normalizeTeamObservation(rawPlayer);
 
-if (observation) {
-  const savedObservation = await importValorantTeamObservation(observation);
+    if (observation) {
+      const savedObservation = await importValorantTeamObservation(observation);
 
-  console.log(`Team observation saved: ${savedObservation.teamId}`);
-}
-
+      console.log(`Team observation saved: ${savedObservation.teamId}`);
+    }
   }
 
   console.log(`Import complete! ${imported} players imported, ${skipped} coaches skipped.`);

@@ -1,6 +1,4 @@
-
 import { prisma } from '../lib/prisma.js';
-
 
 export function filterLatestTeamObservations<
   T extends {
@@ -11,9 +9,7 @@ export function filterLatestTeamObservations<
   },
 >(observations: T[], teamId: string): T[] {
   const sorted = [...observations].sort(
-    (a, b) =>
-      b.observedAt.getTime() - a.observedAt.getTime() ||
-      b.id.localeCompare(a.id),
+    (a, b) => b.observedAt.getTime() - a.observedAt.getTime() || b.id.localeCompare(a.id),
   );
 
   const seenPlayers = new Set<string>();
@@ -28,8 +24,6 @@ export function filterLatestTeamObservations<
     return observation.teamId === teamId;
   });
 }
-
-
 
 export async function getLatestObservedRoster(teamId: string) {
   // Find players who have been observed on this team.
@@ -59,10 +53,7 @@ export async function getLatestObservedRoster(teamId: string) {
     include: {
       player: true,
     },
-    orderBy: [
-      { observedAt: 'desc' },
-      { id: 'desc' },
-    ],
+    orderBy: [{ observedAt: 'desc' }, { id: 'desc' }],
   });
 
   return filterLatestTeamObservations(observations, teamId);

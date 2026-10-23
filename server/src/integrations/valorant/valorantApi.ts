@@ -1,10 +1,6 @@
-
 const API_URL = 'https://api.balldontlie.io/valorant/v1';
 
-export async function getValorantTeams(
-  perPage = 10,
-  cursor?: number,
-): Promise<unknown> {
+export async function getValorantTeams(perPage = 10, cursor?: number): Promise<unknown> {
   const apiKey = process.env.BALLDONTLIE_API_KEY;
 
   if (!apiKey) {
@@ -32,11 +28,7 @@ export async function getValorantTeams(
   return response.json();
 }
 
-
-export async function getValorantPlayers(
-  perPage = 1,
-  cursor?: number,
-): Promise<unknown> {
+export async function getValorantPlayers(perPage = 1, cursor?: number): Promise<unknown> {
   const apiKey = process.env.BALLDONTLIE_API_KEY;
 
   if (!apiKey) {

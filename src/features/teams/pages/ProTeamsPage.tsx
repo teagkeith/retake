@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import {
   fetchProTeams,
@@ -21,7 +20,7 @@ export default function ProTeamsPage() {
   const [detailsLoading, setDetailsLoading] = useState(false);
   const [detailsError, setDetailsError] = useState<string | null>(null);
 
-    const detailsRequestRef = useRef<AbortController | null>(null);
+  const detailsRequestRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -52,42 +51,39 @@ export default function ProTeamsPage() {
   }, []);
 
   useEffect(() => {
-  return () => {
+    return () => {
+      detailsRequestRef.current?.abort();
+    };
+  }, []);
+
+  async function handleSelectTeam(teamId: string) {
+    // Cancel any previous team-details request.
     detailsRequestRef.current?.abort();
-  };
-}, []);
 
-async function handleSelectTeam(teamId: string) {
-  // Cancel any previous team-details request.
-  detailsRequestRef.current?.abort();
+    const controller = new AbortController();
+    detailsRequestRef.current = controller;
 
-  const controller = new AbortController();
-  detailsRequestRef.current = controller;
+    setDetailsLoading(true);
+    setDetailsError(null);
+    setSelectedTeam(null);
 
-  setDetailsLoading(true);
-  setDetailsError(null);
-  setSelectedTeam(null);
+    try {
+      const team = await fetchProTeamDetails(teamId, controller.signal);
 
-  try {
-    const team = await fetchProTeamDetails(teamId, controller.signal);
-
-    if (!controller.signal.aborted) {
-      setSelectedTeam(team);
-    }
-  } catch (error) {
-    if (!controller.signal.aborted) {
-      setDetailsError(
-        error instanceof Error ? error.message : 'Could not load team details',
-      );
-    }
-  } finally {
-    if (detailsRequestRef.current === controller) {
-      detailsRequestRef.current = null;
-      setDetailsLoading(false);
+      if (!controller.signal.aborted) {
+        setSelectedTeam(team);
+      }
+    } catch (error) {
+      if (!controller.signal.aborted) {
+        setDetailsError(error instanceof Error ? error.message : 'Could not load team details');
+      }
+    } finally {
+      if (detailsRequestRef.current === controller) {
+        detailsRequestRef.current = null;
+        setDetailsLoading(false);
+      }
     }
   }
-}
-
 
   const query = search.trim().toLowerCase();
 
@@ -155,12 +151,7 @@ async function handleSelectTeam(teamId: string) {
 
       {detailsError && <p role="alert">{detailsError}</p>}
 
-      {selectedTeam && (
-        <ProTeamModal
-          team={selectedTeam}
-          onClose={() => setSelectedTeam(null)}
-        />
-      )}
+      {selectedTeam && <ProTeamModal team={selectedTeam} onClose={() => setSelectedTeam(null)} />}
     </section>
   );
 }

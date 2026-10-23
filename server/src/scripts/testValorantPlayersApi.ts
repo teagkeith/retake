@@ -1,7 +1,5 @@
-
 import 'dotenv/config';
 import { getValorantPlayers } from '../integrations/valorant/valorantApi.js';
-
 
 async function main() {
   const response = await getValorantPlayers(10);
@@ -32,7 +30,6 @@ async function main() {
     );
   }
 }
-
 
 main().catch((error) => {
   console.error('Player API request failed:', error);

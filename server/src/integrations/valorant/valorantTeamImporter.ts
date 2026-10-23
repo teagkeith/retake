@@ -8,11 +8,7 @@ export interface ImportedValorantTeam {
   logoUrl: string | null;
 }
 
-
-
-export async function importValorantTeam(
-  team: ImportedValorantTeam,
-) {
+export async function importValorantTeam(team: ImportedValorantTeam) {
   if (!team.externalId.trim() || !team.name.trim()) {
     throw new Error('Team must have an external ID and name');
   }

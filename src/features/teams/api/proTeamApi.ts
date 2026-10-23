@@ -1,4 +1,3 @@
-
 export interface ProTeamSummary {
   id: string;
   name: string;
@@ -6,7 +5,6 @@ export interface ProTeamSummary {
   region: string | null;
   logoUrl: string | null;
 }
-
 
 export interface ObservedProPlayer {
   id: string;
@@ -20,9 +18,7 @@ export interface ProTeamDetails extends ProTeamSummary {
   observedPlayers: ObservedProPlayer[];
 }
 
-export async function fetchProTeams(
-  gameId: string,
-): Promise<ProTeamSummary[]> {
+export async function fetchProTeams(gameId: string): Promise<ProTeamSummary[]> {
   const url = new URL('http://localhost:3001/api/pro-teams');
 
   url.searchParams.set('gameId', gameId);
@@ -35,7 +31,6 @@ export async function fetchProTeams(
 
   return response.json() as Promise<ProTeamSummary[]>;
 }
-
 
 export async function fetchProTeamDetails(
   teamId: string,

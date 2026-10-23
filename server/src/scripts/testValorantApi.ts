@@ -1,4 +1,3 @@
-
 import 'dotenv/config';
 import { getValorantTeams } from '../integrations/valorant/valorantApi.js';
 

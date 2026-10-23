@@ -1,4 +1,3 @@
-
 export interface ValorantTeamObservation {
   playerExternalId: string;
   teamExternalId: string;
@@ -6,13 +5,10 @@ export interface ValorantTeamObservation {
   teamShortName: string | null;
 }
 
-
 import { prisma } from '../../lib/prisma.js';
 import { importValorantTeam } from './valorantTeamImporter.js';
 
-export async function importValorantTeamObservation(
-  observation: ValorantTeamObservation,
-) {
+export async function importValorantTeamObservation(observation: ValorantTeamObservation) {
   const player = await prisma.proPlayer.findUnique({
     where: {
       gameId_externalSource_externalPlayerId: {
@@ -35,7 +31,6 @@ export async function importValorantTeamObservation(
     logoUrl: null,
   });
 
-  
   // Check the most recent observation from this provider.
   const latestObservation = await prisma.proTeamObservation.findFirst({
     where: {
@@ -60,6 +55,4 @@ export async function importValorantTeamObservation(
       source: 'balldontlie',
     },
   });
-
 }
-

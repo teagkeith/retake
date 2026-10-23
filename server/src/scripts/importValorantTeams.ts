@@ -1,11 +1,9 @@
-
 import 'dotenv/config';
 
 import { getValorantTeams } from '../integrations/valorant/valorantApi.js';
 import { normalizeValorantTeam } from '../integrations/valorant/valorantTeamAdapter.js';
 import { importValorantTeam } from '../integrations/valorant/valorantTeamImporter.js';
 import { prisma } from '../lib/prisma.js';
-
 
 async function main() {
   const maxPages = 3;
@@ -61,7 +59,6 @@ async function main() {
 
   console.log(`Import complete! Processed ${totalImported} teams.`);
 }
-
 
 main()
   .catch((error) => {

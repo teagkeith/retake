@@ -1,15 +1,11 @@
-
 export interface ImportedValorantPlayer {
   externalId: string;
   displayName: string;
 }
 
-
 import { prisma } from '../../lib/prisma.js';
 
-export async function importValorantPlayer(
-  player: ImportedValorantPlayer,
-) {
+export async function importValorantPlayer(player: ImportedValorantPlayer) {
   if (!player.externalId.trim() || !player.displayName.trim()) {
     throw new Error('Player must have an external ID and display name');
   }

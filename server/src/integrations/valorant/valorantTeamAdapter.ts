@@ -1,9 +1,6 @@
-
 import type { ImportedValorantTeam } from './valorantTeamImporter.js';
 
-export function normalizeValorantTeam(
-  data: unknown,
-): ImportedValorantTeam {
+export function normalizeValorantTeam(data: unknown): ImportedValorantTeam {
   if (typeof data !== 'object' || data === null) {
     throw new Error('Invalid team data');
   }
@@ -25,10 +22,7 @@ export function normalizeValorantTeam(
   return {
     externalId: String(data.id),
     name: data.name.trim(),
-    shortName:
-      'acronym' in data && typeof data.acronym === 'string'
-        ? data.acronym
-        : null,
+    shortName: 'acronym' in data && typeof data.acronym === 'string' ? data.acronym : null,
     region: null,
     logoUrl: null,
   };

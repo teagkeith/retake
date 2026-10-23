@@ -1,9 +1,6 @@
-
 import type { ValorantTeamObservation } from './valorantTeamObservationImporter.js';
 
-export function normalizeTeamObservation(
-  data: unknown,
-): ValorantTeamObservation | null {
+export function normalizeTeamObservation(data: unknown): ValorantTeamObservation | null {
   if (typeof data !== 'object' || data === null) {
     throw new Error('Invalid player data');
   }
@@ -45,8 +42,6 @@ export function normalizeTeamObservation(
     teamExternalId: String(team.id),
     teamName: team.name.trim(),
     teamShortName:
-      'acronym' in team && typeof team.acronym === 'string'
-        ? team.acronym.trim()
-        : null,
+      'acronym' in team && typeof team.acronym === 'string' ? team.acronym.trim() : null,
   };
 }

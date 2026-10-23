@@ -1,9 +1,6 @@
-
 import type { ImportedValorantPlayer } from './valorantPlayerImporter.js';
 
-export function normalizeValorantPlayer(
-  data: unknown,
-): ImportedValorantPlayer | null {
+export function normalizeValorantPlayer(data: unknown): ImportedValorantPlayer | null {
   if (typeof data !== 'object' || data === null) {
     throw new Error('Invalid player data');
   }

@@ -1,4 +1,3 @@
-
 interface AppLayoutProps {
   activeTab: 'overview' | 'roster' | 'teams';
   onTabChange: (tab: 'overview' | 'roster' | 'teams') => void;

@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import type { ProTeamDetails } from '../api/proTeamApi';
 
@@ -9,10 +8,7 @@ interface ProTeamModalProps {
   onClose: () => void;
 }
 
-export default function ProTeamModal({
-  team,
-  onClose,
-}: ProTeamModalProps) {
+export default function ProTeamModal({ team, onClose }: ProTeamModalProps) {
   const modalRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const onCloseRef = useRef(onClose);
@@ -43,10 +39,9 @@ export default function ProTeamModal({
         return;
       }
 
-      const focusableElements =
-        modalRef.current?.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
-        );
+      const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
 
       if (!focusableElements?.length) {
         event.preventDefault();
@@ -120,9 +115,7 @@ export default function ProTeamModal({
         <div className="proTeamModalBody">
           <h3>Player Affiliations</h3>
 
-          <p id="proTeamModalDescription">
-            Latest reported affiliations from our data providers.
-          </p>
+          <p id="proTeamModalDescription">Latest reported affiliations from our data providers.</p>
 
           {team.observedPlayers.length === 0 ? (
             <p>No player affiliations recorded yet.</p>

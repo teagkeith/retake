@@ -96,7 +96,6 @@ app.get('/api/teams/:teamId', async (req, res) => {
   }
 });
 
-
 // Retrieve professional esports teams
 app.get('/api/pro-teams', async (req, res) => {
   try {
@@ -136,8 +135,6 @@ app.get('/api/pro-teams', async (req, res) => {
   }
 });
 
-
-
 // Retrieve a professional esports team and its roster
 app.get('/api/pro-teams/:teamId', async (req, res) => {
   try {
@@ -147,7 +144,7 @@ app.get('/api/pro-teams/:teamId', async (req, res) => {
       where: {
         id: teamId,
       },
-      
+
       include: {
         memberships: {
           include: {
@@ -163,7 +160,6 @@ app.get('/api/pro-teams/:teamId', async (req, res) => {
           },
         },
       },
-
     });
 
     if (!team) {
@@ -173,7 +169,6 @@ app.get('/api/pro-teams/:teamId', async (req, res) => {
       return;
     }
     const currentTeamObservations = await getLatestObservedRoster(team.id);
-        
 
     res.json({
       id: team.id,
@@ -197,7 +192,6 @@ app.get('/api/pro-teams/:teamId', async (req, res) => {
         source: observation.source,
         observedAt: observation.observedAt,
       })),
-
     });
   } catch (error) {
     console.error('Failed to retrieve professional team:', error);
@@ -207,8 +201,6 @@ app.get('/api/pro-teams/:teamId', async (req, res) => {
     });
   }
 });
-
-
 
 // Retrieve raw Deadlock match data
 app.get('/api/deadlock/matches/:matchId', async (req, res) => {
