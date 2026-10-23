@@ -127,7 +127,6 @@ model ProTeam {
   memberships        ProTeamMembership[]
   playerObservations ProTeamObservation[]
 
-  @@unique([gameId, name])
   @@unique([gameId, externalSource, externalId])
 }
 

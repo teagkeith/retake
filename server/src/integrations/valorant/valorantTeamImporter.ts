@@ -12,7 +12,7 @@ export async function importValorantTeam(team: ImportedValorantTeam) {
   if (!team.externalId.trim() || !team.name.trim()) {
     throw new Error('Team must have an external ID and name');
   }
-
+  
   const savedTeam = await prisma.proTeam.upsert({
     where: {
       gameId_externalSource_externalId: {
