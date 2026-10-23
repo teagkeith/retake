@@ -274,6 +274,67 @@ export const lineupSlice = createSlice({
         state.err = error instanceof Error ? error.message : 'Could not lock lineup.';
       }
     },
+      
+
+hydrateSavedLineup: (
+  state,
+  action: PayloadAction<{
+    id: string;
+    fantasyTeamId: string;
+    scoringWeekId: string;
+    starterPlayerIds: string[];
+    draftPlayerIds: string[] | null;
+    status: 'draft' | 'submitted' | 'locked';
+    lockedAt: string | null;
+  }>,
+) => {
+  const {
+    id,
+    fantasyTeamId,
+    scoringWeekId,
+    starterPlayerIds,
+    draftPlayerIds,
+    status,
+    lockedAt,
+  } = action.payload;
+
+  const key = getLineupKey(fantasyTeamId, scoringWeekId);
+
+  // Store the official lineup returned by MySQL.
+  state.fantasyTeamId = fantasyTeamId;
+  state.scoringWeekId = scoringWeekId;
+
+  state.lineups[key] = {
+    id,
+    fantasyTeamId,
+    scoringWeekId,
+    starterPlayerIds: [...starterPlayerIds],
+    status,
+    lockedAt,
+  };
+
+  // Only submitted or locked lineups have official starters.
+  state.savedStarterIds =
+    status === 'submitted' || status === 'locked'
+      ? [...starterPlayerIds]
+      : [];
+
+  // Restore unfinished edits when they exist.
+  const workingPlayers = draftPlayerIds ?? starterPlayerIds;
+
+  state.starterIds = [...workingPlayers];
+
+  if (draftPlayerIds !== null) {
+    state.workingDrafts[key] = [...draftPlayerIds];
+  } else {
+    delete state.workingDrafts[key];
+  }
+
+  state.err = '';
+},
+
+
+
   },
 });
 
@@ -284,6 +345,7 @@ export const {
   saveDraft,
   submitCurrentLineup,
   lockCurrentLineup,
+  hydrateSavedLineup,
 } = lineupSlice.actions;
 
 export default lineupSlice.reducer;

@@ -1,0 +1,133 @@
+Date : 2026-10-21 15:38:32
+Directory : c:\Projects\rotate
+Total : 68 files,  6458 codes, 103 comments, 647 blanks, all 7208 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          5 |      3,326 |          4 |          8 |      3,338 |
+| TypeScript         |         38 |      1,559 |         16 |        328 |      1,903 |
+| PostCSS            |          9 |        835 |         77 |        201 |      1,113 |
+| TypeScript JSX     |          9 |        636 |          6 |         84 |        726 |
+| PowerShell         |          1 |         28 |          0 |         14 |         42 |
+| XML                |          2 |         25 |          0 |          1 |         26 |
+| JavaScript         |          1 |         21 |          0 |          2 |         23 |
+| HTML               |          1 |         13 |          0 |          1 |         14 |
+| Markdown           |          1 |          8 |          0 |          7 |         15 |
+| JSON with Comments |          1 |          7 |          0 |          1 |          8 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                      | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                         |         68 |      6,458 |        103 |        647 |      7,208 |
+| . (Files)                                                                 |         10 |      3,386 |          5 |         21 |      3,412 |
+| public                                                                    |          2 |         25 |          0 |          1 |         26 |
+| scripts                                                                   |          1 |         28 |          0 |         14 |         42 |
+| src                                                                       |         55 |      3,019 |         98 |        611 |      3,728 |
+| src (Files)                                                               |          4 |        235 |         50 |         55 |        340 |
+| src\app                                                                   |          2 |         13 |          1 |          7 |         21 |
+| src\features                                                              |         47 |      2,711 |         44 |        538 |      3,293 |
+| src\features\auth                                                         |          1 |          6 |          0 |          0 |          6 |
+| src\features\auth\types                                                   |          1 |          6 |          0 |          0 |          6 |
+| src\features\dashboard                                                    |          4 |        260 |          0 |         49 |        309 |
+| src\features\dashboard\components                                         |          2 |        102 |          0 |         21 |        123 |
+| src\features\dashboard\pages                                              |          2 |        158 |          0 |         28 |        186 |
+| src\features\league                                                       |          7 |        211 |          0 |         28 |        239 |
+| src\features\league\api                                                   |          1 |         16 |          0 |          3 |         19 |
+| src\features\league\components                                            |          2 |        151 |          0 |         19 |        170 |
+| src\features\league\data                                                  |          1 |         18 |          0 |          2 |         20 |
+| src\features\league\types                                                 |          3 |         26 |          0 |          4 |         30 |
+| src\features\matchups                                                     |          3 |        256 |          0 |         39 |        295 |
+| src\features\matchups\components                                          |          2 |        245 |          0 |         37 |        282 |
+| src\features\matchups\types                                               |          1 |         11 |          0 |          2 |         13 |
+| src\features\players                                                      |         13 |        419 |          2 |         62 |        483 |
+| src\features\players\data                                                 |          4 |        236 |          2 |         21 |        259 |
+| src\features\players\types                                                |          3 |         25 |          0 |          5 |         30 |
+| src\features\players\utils                                                |          6 |        158 |          0 |         36 |        194 |
+| src\features\roster                                                       |         19 |      1,559 |         42 |        360 |      1,961 |
+| src\features\roster\components                                            |          4 |        520 |         30 |        114 |        664 |
+| src\features\roster\data                                                  |          3 |         52 |          0 |         12 |         64 |
+| src\features\roster\store                                                 |          3 |        547 |         12 |        152 |        711 |
+| src\features\roster\types                                                 |          2 |         18 |          0 |          2 |         20 |
+| src\features\roster\utils                                                 |          7 |        422 |          0 |         80 |        502 |
+| src\layouts                                                               |          1 |         36 |          0 |          5 |         41 |
+| src\styles                                                                |          1 |         24 |          3 |          6 |         33 |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                  | language           | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Projects\rotate\.prettierrc.json                                       | JSON               |          7 |          0 |          1 |          8 |
+| c:\Projects\rotate\README.md                                              | Markdown           |          8 |          0 |          7 |         15 |
+| c:\Projects\rotate\eslint.config.js                                       | JavaScript         |         21 |          0 |          2 |         23 |
+| c:\Projects\rotate\index.html                                             | HTML               |         13 |          0 |          1 |         14 |
+| c:\Projects\rotate\package-lock.json                                      | JSON               |      3,237 |          0 |          1 |      3,238 |
+| c:\Projects\rotate\package.json                                           | JSON               |         41 |          0 |          0 |         41 |
+| c:\Projects\rotate\public\favicon.svg                                     | XML                |          1 |          0 |          0 |          1 |
+| c:\Projects\rotate\public\icons.svg                                       | XML                |         24 |          0 |          1 |         25 |
+| c:\Projects\rotate\scripts\checkpoint.ps1                                 | PowerShell         |         28 |          0 |         14 |         42 |
+| c:\Projects\rotate\src\App.css                                            | PostCSS            |         71 |          0 |         15 |         86 |
+| c:\Projects\rotate\src\App.tsx                                            | TypeScript JSX     |        135 |          0 |         30 |        165 |
+| c:\Projects\rotate\src\app\hooks.ts                                       | TypeScript         |          4 |          0 |          2 |          6 |
+| c:\Projects\rotate\src\app\store.ts                                       | TypeScript         |          9 |          1 |          5 |         15 |
+| c:\Projects\rotate\src\features\auth\types\User.ts                        | TypeScript         |          6 |          0 |          0 |          6 |
+| c:\Projects\rotate\src\features\dashboard\components\StatCard.css         | PostCSS            |         75 |          0 |         17 |         92 |
+| c:\Projects\rotate\src\features\dashboard\components\StatCard.tsx         | TypeScript JSX     |         27 |          0 |          4 |         31 |
+| c:\Projects\rotate\src\features\dashboard\pages\OverviewPage.tsx          | TypeScript JSX     |         79 |          0 |          7 |         86 |
+| c:\Projects\rotate\src\features\dashboard\pages\Overviewpage.css          | PostCSS            |         79 |          0 |         21 |        100 |
+| c:\Projects\rotate\src\features\league\api\fantasyTeamApi.ts              | TypeScript         |         16 |          0 |          3 |         19 |
+| c:\Projects\rotate\src\features\league\components\StandingsCard.css       | PostCSS            |         54 |          0 |         12 |         66 |
+| c:\Projects\rotate\src\features\league\components\StandingsCard.tsx       | TypeScript JSX     |         97 |          0 |          7 |        104 |
+| c:\Projects\rotate\src\features\league\data\mockFantasyTeams.ts           | TypeScript         |         18 |          0 |          2 |         20 |
+| c:\Projects\rotate\src\features\league\types\FantasyLeague.ts             | TypeScript         |         10 |          0 |          2 |         12 |
+| c:\Projects\rotate\src\features\league\types\FantasyTeam.ts               | TypeScript         |          7 |          0 |          0 |          7 |
+| c:\Projects\rotate\src\features\league\types\ScoringWeek.ts               | TypeScript         |          9 |          0 |          2 |         11 |
+| c:\Projects\rotate\src\features\matchups\components\MatchupCard.css       | PostCSS            |        180 |          0 |         31 |        211 |
+| c:\Projects\rotate\src\features\matchups\components\MatchupCard.tsx       | TypeScript JSX     |         65 |          0 |          6 |         71 |
+| c:\Projects\rotate\src\features\matchups\types\FantasyMatchup.ts          | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Projects\rotate\src\features\players\data\mockPlayerData.test.ts       | TypeScript         |         42 |          0 |         13 |         55 |
+| c:\Projects\rotate\src\features\players\data\mockPlayerPerformances.ts    | TypeScript         |         75 |          2 |          3 |         80 |
+| c:\Projects\rotate\src\features\players\data\mockProPlayers.ts            | TypeScript         |         67 |          0 |          2 |         69 |
+| c:\Projects\rotate\src\features\players\data\mockProTeams.ts              | TypeScript         |         52 |          0 |          3 |         55 |
+| c:\Projects\rotate\src\features\players\types\PlayerPerformance.ts        | TypeScript         |          9 |          0 |          1 |         10 |
+| c:\Projects\rotate\src\features\players\types\ProPlayer.ts                | TypeScript         |          9 |          0 |          2 |         11 |
+| c:\Projects\rotate\src\features\players\types\ProTeam.ts                  | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Projects\rotate\src\features\players\utils\buildPlayerCardData.test.ts | TypeScript         |         33 |          0 |          7 |         40 |
+| c:\Projects\rotate\src\features\players\utils\buildPlayerCardData.ts      | TypeScript         |         25 |          0 |          4 |         29 |
+| c:\Projects\rotate\src\features\players\utils\getProTeamById.test.ts      | TypeScript         |         13 |          0 |          4 |         17 |
+| c:\Projects\rotate\src\features\players\utils\getProTeamById.ts           | TypeScript         |          4 |          0 |          2 |          6 |
+| c:\Projects\rotate\src\features\players\utils\toPlayerCarData.test.ts     | TypeScript         |         54 |          0 |         15 |         69 |
+| c:\Projects\rotate\src\features\players\utils\toPlayerCardData.ts         | TypeScript         |         29 |          0 |          4 |         33 |
+| c:\Projects\rotate\src\features\roster\components\PlayerCard.css          | PostCSS            |         90 |          0 |         18 |        108 |
+| c:\Projects\rotate\src\features\roster\components\PlayerCard.tsx          | TypeScript JSX     |         36 |          0 |          5 |         41 |
+| c:\Projects\rotate\src\features\roster\components\RosterPage.css          | PostCSS            |        247 |         26 |         75 |        348 |
+| c:\Projects\rotate\src\features\roster\components\RosterPage.tsx          | TypeScript JSX     |        147 |          4 |         16 |        167 |
+| c:\Projects\rotate\src\features\roster\data\mockPlayerPerformances.ts     | TypeScript         |         12 |          0 |          2 |         14 |
+| c:\Projects\rotate\src\features\roster\data\mockProPlayer.test.ts         | TypeScript         |         29 |          0 |          8 |         37 |
+| c:\Projects\rotate\src\features\roster\data\mockProPlayers.ts             | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Projects\rotate\src\features\roster\store\lineSelectors.ts             | TypeScript         |         43 |          0 |         13 |         56 |
+| c:\Projects\rotate\src\features\roster\store\lineupSlice.test.ts          | TypeScript         |        266 |          8 |         91 |        365 |
+| c:\Projects\rotate\src\features\roster\store\lineupSlice.ts               | TypeScript         |        238 |          4 |         48 |        290 |
+| c:\Projects\rotate\src\features\roster\types\FantasyLineup.ts             | TypeScript         |          9 |          0 |          2 |         11 |
+| c:\Projects\rotate\src\features\roster\types\PlayerPerformance.ts         | TypeScript         |          9 |          0 |          0 |          9 |
+| c:\Projects\rotate\src\features\roster\utils\getLineupKey.ts              | TypeScript         |          3 |          0 |          1 |          4 |
+| c:\Projects\rotate\src\features\roster\utils\lineupLifeCycle.test.ts      | TypeScript         |        197 |          0 |         35 |        232 |
+| c:\Projects\rotate\src\features\roster\utils\lineupLifecycle.ts           | TypeScript         |         73 |          0 |         15 |         88 |
+| c:\Projects\rotate\src\features\roster\utils\lineupValidation.test.ts     | TypeScript         |         38 |          0 |          9 |         47 |
+| c:\Projects\rotate\src\features\roster\utils\lineupValidation.ts          | TypeScript         |         28 |          0 |          7 |         35 |
+| c:\Projects\rotate\src\features\roster\utils\toPlayerCardData.test.ts     | TypeScript         |         54 |          0 |         10 |         64 |
+| c:\Projects\rotate\src\features\roster\utils\toPlayerCardData.ts          | TypeScript         |         29 |          0 |          3 |         32 |
+| c:\Projects\rotate\src\index.css                                          | PostCSS            |         15 |         48 |          6 |         69 |
+| c:\Projects\rotate\src\layouts\AppLayout.tsx                              | TypeScript JSX     |         36 |          0 |          5 |         41 |
+| c:\Projects\rotate\src\main.tsx                                           | TypeScript JSX     |         14 |          2 |          4 |         20 |
+| c:\Projects\rotate\src\styles\variables.css                               | PostCSS            |         24 |          3 |          6 |         33 |
+| c:\Projects\rotate\tsconfig.app.json                                      | JSON               |         22 |          2 |          3 |         27 |
+| c:\Projects\rotate\tsconfig.json                                          | JSON with Comments |          7 |          0 |          1 |          8 |
+| c:\Projects\rotate\tsconfig.node.json                                     | JSON               |         19 |          2 |          3 |         24 |
+| c:\Projects\rotate\vite.config.ts                                         | TypeScript         |         11 |          1 |          2 |         14 |
+| Total                                                                     |                    |      6,458 |        103 |        647 |      7,208 |
++---------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

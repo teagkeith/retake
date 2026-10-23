@@ -24,6 +24,7 @@ model FantasyLineup {
   scoringWeekId    String
   status           LineupStatus @default(draft)
   starterPlayerIds Json
+  draftPlayerIds   Json?
   lockedAt         DateTime?
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @updatedAt
@@ -45,6 +46,79 @@ model FantasyRosterPlayer {
   proPlayerId   String
 
   fantasyTeam FantasyTeam @relation(fields: [fantasyTeamId], references: [id])
+  proPlayer   ProPlayer   @relation(fields: [proPlayerId], references: [id])
 
   @@unique([fantasyTeamId, proPlayerId])
+}
+
+model Game {
+  id        String   @id
+  name      String
+  createdAt DateTime @default(now())
+
+  matches    GameMatch[]
+  proPlayers ProPlayer[]
+  proTeams   ProTeam[]
+}
+
+model GameMatch {
+  id              String   @id @default(cuid())
+  gameId          String
+  externalMatchId String
+  durationSeconds Int
+  createdAt       DateTime @default(now())
+
+  game        Game               @relation(fields: [gameId], references: [id])
+  playerStats PlayerMatchStats[]
+
+  @@unique([gameId, externalMatchId])
+}
+
+model PlayerMatchStats {
+  id               String     @id @default(cuid())
+  gameMatchId      String
+  externalPlayerId String
+  proPlayerId      String?
+  proPlayer        ProPlayer? @relation(fields: [proPlayerId], references: [id])
+
+  kills   Int
+  deaths  Int
+  assists Int
+
+  stats Json?
+
+  match GameMatch @relation(fields: [gameMatchId], references: [id])
+
+  @@unique([gameMatchId, externalPlayerId])
+}
+
+model ProPlayer {
+  id               String   @id @default(cuid())
+  gameId           String
+  displayName      String
+  externalPlayerId String?
+  verified         Boolean  @default(false)
+  createdAt        DateTime @default(now())
+
+  game           Game                  @relation(fields: [gameId], references: [id])
+  matchStats     PlayerMatchStats[]
+  fantasyRosters FantasyRosterPlayer[]
+
+  @@unique([gameId, externalPlayerId])
+}
+
+model ProTeam {
+  id        String   @id @default(cuid())
+  gameId    String
+  name      String
+  shortName String?
+  region    String?
+  logoUrl   String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  game Game @relation(fields: [gameId], references: [id])
+
+  @@unique([gameId, name])
 }

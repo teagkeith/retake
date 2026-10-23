@@ -1,8 +1,18 @@
-interface FantasyTeamResponse {
+export interface FantasyPlayer {
+  id: string;
+  displayName: string;
+  gameId: string;
+  gameName: string;
+  verified: boolean;
+}
+
+export interface FantasyTeamResponse {
   id: string;
   name: string;
   rosterPlayerIds: string[];
+  players: FantasyPlayer[];
 }
+
 
 export async function fetchFantasyTeam(
   teamId: string,
