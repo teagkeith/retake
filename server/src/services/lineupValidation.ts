@@ -1,7 +1,4 @@
-export function validateDraft(
-  rosterPlayerIds: string[],
-  starterPlayerIds: string[],
-): boolean {
+export function validateDraft(rosterPlayerIds: string[], starterPlayerIds: string[]): boolean {
   const uniquePlayers = new Set(starterPlayerIds);
 
   return (
@@ -11,12 +8,6 @@ export function validateDraft(
   );
 }
 
-export function validateSubmission(
-  rosterPlayerIds: string[],
-  starterPlayerIds: string[],
-): boolean {
-  return (
-    starterPlayerIds.length === 5 &&
-    validateDraft(rosterPlayerIds, starterPlayerIds)
-  );
+export function validateSubmission(rosterPlayerIds: string[], starterPlayerIds: string[]): boolean {
+  return starterPlayerIds.length === 5 && validateDraft(rosterPlayerIds, starterPlayerIds);
 }

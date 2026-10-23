@@ -1,5 +1,5 @@
-import type { ProPlayer } from '../types/ProPlayer';
 import type { PlayerPerformance } from '../types/PlayerPerformance';
+import type { ProPlayer } from '../types/ProPlayer';
 
 export interface PlayerCardData {
   id: string;

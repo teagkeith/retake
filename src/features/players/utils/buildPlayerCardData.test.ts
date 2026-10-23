@@ -1,10 +1,8 @@
 import { describe, expect, it } from 'vitest';
-
-import { buildPlayerCardData } from './buildPlayerCardData';
-
+import { mockPlayerPerformances } from '../data/mockPlayerPerformances';
 import { mockProPlayers } from '../data/mockProPlayers';
 import { mockProTeams } from '../data/mockProTeams';
-import { mockPlayerPerformances } from '../data/mockPlayerPerformances';
+import { buildPlayerCardData } from './buildPlayerCardData';
 
 describe('Player Card Dataset Builder', () => {
   it('builds display data for all eight mock players', () => {

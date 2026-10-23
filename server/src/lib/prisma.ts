@@ -10,9 +10,9 @@ const adapter = new PrismaMariaDb({
   password: process.env.DATABASE_PASSWORD!,
   database: process.env.DATABASE_NAME!,
   ssl: {
-  ca: readFileSync('certs/ca.pem', 'utf8'),
-  rejectUnauthorized: true,
-},
+    ca: readFileSync('certs/ca.pem', 'utf8'),
+    rejectUnauthorized: true,
+  },
   connectionLimit: 5,
 });
 

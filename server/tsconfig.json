@@ -6,8 +6,11 @@
     "rootDir": ".",
     "outDir": "./dist",
     "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["src", "generated"]
+  "include": ["src", "generated", "vitest.config.ts", "prisma7.config.ts"]
 }

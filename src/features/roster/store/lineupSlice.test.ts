@@ -1,12 +1,11 @@
 import { describe, expect, it } from 'vitest';
-
 import lineupReducer, {
   loadFantasyTeam,
-  toggleStarter,
-  selectScoringWeek,
-  saveDraft,
-  submitCurrentLineup,
   lockCurrentLineup,
+  saveDraft,
+  selectScoringWeek,
+  submitCurrentLineup,
+  toggleStarter,
 } from './lineupSlice';
 
 const timing = {

@@ -1,28 +1,5 @@
-
-interface DeadlockPlayer {
-  account_id: number;
-  hero_id: number;
-  kills: number;
-  deaths: number;
-  assists: number;
-}
-
-interface DeadlockMatchResponse {
-  match_info: {
-    duration_s: number;
-    players: DeadlockPlayer[];
-  };
-}
-
-export function normalizeDeadlockMatch(
-  matchId: number,
-  data: unknown,
-) {
-  if (
-    typeof data !== 'object' ||
-    data === null ||
-    !('match_info' in data)
-  ) {
+export function normalizeDeadlockMatch(matchId: number, data: unknown) {
+  if (typeof data !== 'object' || data === null || !('match_info' in data)) {
     throw new Error('Invalid Deadlock match response');
   }
 

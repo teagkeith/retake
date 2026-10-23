@@ -1,8 +1,8 @@
 import StandingsCard from '../../league/components/StandingsCard';
 import MatchupCard from '../../matchups/components/MatchupCard';
 import StatCard from '../components/StatCard';
-import './Overviewpage.css';
-import { Trophy, Swords, Zap, Users } from 'lucide-react';
+import './OverviewPage.css';
+import { Swords, Trophy, Users, Zap } from 'lucide-react';
 
 const leagueStats = [
   {

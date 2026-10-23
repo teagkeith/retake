@@ -1,33 +1,23 @@
 import { useEffect, useState } from 'react';
-
-import {
-  fetchFantasyTeam,
-  type FantasyPlayer,
-} from './features/league/api/fantasyTeamApi';
-
 import { useAppDispatch, useAppSelector } from './app/hooks';
-
+import { type FantasyPlayer, fetchFantasyTeam } from './features/league/api/fantasyTeamApi';
+import { fetchSavedLineup, saveLineup } from './features/roster/api/lineupApi';
 import {
-  loadFantasyTeam,
-  selectScoringWeek,
-  toggleStarter,
-  submitCurrentLineup,
-  saveDraft,
-  lockCurrentLineup,
-  hydrateSavedLineup,
-} from './features/roster/store/lineupSlice';
-
-import {
-  selectRosterPlayerIds,
-  selectStarterIds,
-  selectLineupError,
-  selectLineupMatch,
-  selectSavedStarterIds,
   selectDraftSaved,
   selectIsLineupFinalized,
+  selectLineupError,
+  selectLineupMatch,
+  selectRosterPlayerIds,
+  selectSavedStarterIds,
+  selectStarterIds,
 } from './features/roster/store/lineSelectors';
-
-import { fetchSavedLineup, saveLineup } from './features/roster/api/lineupApi';
+import {
+  hydrateSavedLineup,
+  loadFantasyTeam,
+  lockCurrentLineup,
+  selectScoringWeek,
+  toggleStarter,
+} from './features/roster/store/lineupSlice';
 
 import './App.css';
 import OverviewPage from './features/dashboard/pages/OverviewPage';
@@ -42,9 +32,8 @@ const activeScoringWeek = {
 function App() {
   const [activeTab, setActiveTab] = useState<'overview' | 'roster'>('overview');
   const [teamLoading, setTeamLoading] = useState(true);
-  const [teamError, setTeamError] = useState(''); 
+  const [teamError, setTeamError] = useState('');
   const [teamPlayers, setTeamPlayers] = useState<FantasyPlayer[]>([]);
-
 
   const dispatch = useAppDispatch();
   const starterIds = useAppSelector(selectStarterIds);
@@ -54,7 +43,7 @@ function App() {
 
   const savedStarterIds = useAppSelector(selectSavedStarterIds);
   const rosterPlayerIds = useAppSelector(selectRosterPlayerIds);
-const isLineupFinalized = useAppSelector(selectIsLineupFinalized);
+  const isLineupFinalized = useAppSelector(selectIsLineupFinalized);
   const draftSaved = useAppSelector(selectDraftSaved);
 
   const [currentTime, setCurrentTime] = useState(() => new Date().toISOString());
@@ -69,62 +58,53 @@ const isLineupFinalized = useAppSelector(selectIsLineupFinalized);
   const isLineupLocked =
     new Date(currentTime).getTime() >= new Date(activeScoringWeek.startsAt).getTime();
 
-   
-useEffect(() => {
-  let cancelled = false;
+  useEffect(() => {
+    let cancelled = false;
 
-  async function initializeTeam() {
-    try {
-      const fantasyTeam = await fetchFantasyTeam('fantasy-team-1');
+    async function initializeTeam() {
+      try {
+        const fantasyTeam = await fetchFantasyTeam('fantasy-team-1');
 
-      if (cancelled) return;
+        if (cancelled) return;
 
-      setTeamPlayers(fantasyTeam.players);
+        setTeamPlayers(fantasyTeam.players);
 
-      dispatch(
-        loadFantasyTeam({
-          fantasyTeamId: fantasyTeam.id,
-          rosterPlayerIds: fantasyTeam.rosterPlayerIds,
-        }),
-      );
+        dispatch(
+          loadFantasyTeam({
+            fantasyTeamId: fantasyTeam.id,
+            rosterPlayerIds: fantasyTeam.rosterPlayerIds,
+          }),
+        );
 
-      dispatch(selectScoringWeek(activeScoringWeek.id));
+        dispatch(selectScoringWeek(activeScoringWeek.id));
 
-      // Restore an existing lineup from MySQL.
-      const savedLineup = await fetchSavedLineup(
-        fantasyTeam.id,
-        activeScoringWeek.id,
-      );
+        // Restore an existing lineup from MySQL.
+        const savedLineup = await fetchSavedLineup(fantasyTeam.id, activeScoringWeek.id);
 
-      if (cancelled) return;
+        if (cancelled) return;
 
-      if (savedLineup) {
-        dispatch(hydrateSavedLineup(savedLineup));
-      }
+        if (savedLineup) {
+          dispatch(hydrateSavedLineup(savedLineup));
+        }
 
-      setTeamError('');
-    } catch (error) {
-      if (cancelled) return;
+        setTeamError('');
+      } catch (error) {
+        if (cancelled) return;
 
-      setTeamError(
-        error instanceof Error
-          ? error.message
-          : 'Could not load fantasy team.',
-      );
-    } finally {
-      if (!cancelled) {
-        setTeamLoading(false);
+        setTeamError(error instanceof Error ? error.message : 'Could not load fantasy team.');
+      } finally {
+        if (!cancelled) {
+          setTeamLoading(false);
+        }
       }
     }
-  }
 
-  void initializeTeam();
+    void initializeTeam();
 
-  return () => {
-    cancelled = true;
-  };
-}, [dispatch]);
-
+    return () => {
+      cancelled = true;
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     if (!isLineupLocked) return;
@@ -138,50 +118,47 @@ useEffect(() => {
   }, [dispatch, isLineupLocked]);
 
   const handleSaveDraft = async () => {
-  try {
-    const savedLineup = await saveLineup({
-      fantasyTeamId: 'fantasy-team-1',
-      scoringWeekId: activeScoringWeek.id,
-      starterPlayerIds: starterIds,
-      action: 'draft',
-    });
+    try {
+      const savedLineup = await saveLineup({
+        fantasyTeamId: 'fantasy-team-1',
+        scoringWeekId: activeScoringWeek.id,
+        starterPlayerIds: starterIds,
+        action: 'draft',
+      });
 
-    dispatch(hydrateSavedLineup(savedLineup));
-  } catch (error) {
-    console.error('Failed to save draft:', error);
-  }
-};
+      dispatch(hydrateSavedLineup(savedLineup));
+    } catch (error) {
+      console.error('Failed to save draft:', error);
+    }
+  };
 
+  const handleSubmitLineup = async () => {
+    try {
+      const submittedLineup = await saveLineup({
+        fantasyTeamId: 'fantasy-team-1',
+        scoringWeekId: activeScoringWeek.id,
+        starterPlayerIds: starterIds,
+        action: 'submit',
+      });
 
-const handleSubmitLineup = async () => {
-  try {
-    const submittedLineup = await saveLineup({
-      fantasyTeamId: 'fantasy-team-1',
-      scoringWeekId: activeScoringWeek.id,
-      starterPlayerIds: starterIds,
-      action: 'submit',
-    });
-
-    dispatch(hydrateSavedLineup(submittedLineup));
-  } catch (error) {
-    console.error('Failed to submit lineup:', error);
-  }
-};
+      dispatch(hydrateSavedLineup(submittedLineup));
+    } catch (error) {
+      console.error('Failed to submit lineup:', error);
+    }
+  };
 
   return (
     <AppLayout activeTab={activeTab} onTabChange={setActiveTab}>
       <div className="leagueContent">
         {activeTab === 'overview' && <OverviewPage />}
         {activeTab === 'roster' && teamLoading && (
-            <p role="status">Loading your fantasy roster...</p>
-          )}
+          <p role="status">Loading your fantasy roster...</p>
+        )}
 
-        {activeTab === 'roster' && !teamLoading && teamError && (
-            <p role="alert">{teamError}</p>
-          )}
+        {activeTab === 'roster' && !teamLoading && teamError && <p role="alert">{teamError}</p>}
 
         {activeTab === 'roster' && !teamLoading && !teamError && (
-            <RosterPage
+          <RosterPage
             isLineupFinalized={isLineupFinalized}
             starterIds={starterIds}
             toggleStarter={(playerId) =>
@@ -202,7 +179,6 @@ const handleSubmitLineup = async () => {
             draftSaved={draftSaved}
             isLineupLocked={isLineupLocked}
             teamPlayers={teamPlayers}
-            starterIds={starterIds} 
           />
         )}
       </div>

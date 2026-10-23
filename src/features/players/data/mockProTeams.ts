@@ -1,7 +1,5 @@
 import type { ProTeam } from '../types/ProTeam';
 
-export type CompetitiveRegion = 'Americas' | 'EMEA' | 'Pacific' | 'China';
-
 export const mockProTeams: ProTeam[] = [
   {
     id: 'pro-team-sad-esports',

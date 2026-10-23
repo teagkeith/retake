@@ -1,9 +1,8 @@
+import type { PlayerPerformance } from '../types/PlayerPerformance';
 import type { ProPlayer } from '../types/ProPlayer';
 import type { ProTeam } from '../types/ProTeam';
-import type { PlayerPerformance } from '../types/PlayerPerformance';
-
 import { getProTeamById } from './getProTeamById';
-import { toPlayerCardData, type PlayerCardData } from './toPlayerCardData';
+import { type PlayerCardData, toPlayerCardData } from './toPlayerCardData';
 
 export function buildPlayerCardData(
   players: ProPlayer[],

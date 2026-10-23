@@ -58,11 +58,7 @@
   border-radius: var(--radius-md);
 }
 .statCard {
-  background: linear-gradient(
-    135deg,
-    var(--color-primary),
-    var(--color-surface) 65%
-  );
+  background: linear-gradient(135deg, var(--color-primary), var(--color-surface) 65%);
 }
 
 .statCard {
@@ -77,9 +73,6 @@
   border-color: var(--color-primary-brighter);
   box-shadow: 0 8px 24px rgba(48, 39, 79, 0.25);
 }
-
-
-
 
 @media (prefers-reduced-motion: reduce) {
   .statCard {

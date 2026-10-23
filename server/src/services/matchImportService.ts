@@ -1,8 +1,6 @@
-
-import { prisma } from '../lib/prisma.js';
-import { getDeadlockMatch } from '../integrations/deadlock/deadlockApi.js';
 import { normalizeDeadlockMatch } from '../integrations/deadlock/deadlockAdapter.js';
-
+import { getDeadlockMatch } from '../integrations/deadlock/deadlockApi.js';
+import { prisma } from '../lib/prisma.js';
 
 export async function importDeadlockMatch(matchId: number) {
   const rawMatch = await getDeadlockMatch(matchId);
@@ -63,4 +61,3 @@ export async function importDeadlockMatch(matchId: number) {
     return savedMatch;
   });
 }
-
