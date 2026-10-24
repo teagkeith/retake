@@ -7,15 +7,18 @@ import { prisma } from './lib/prisma.js';
 import { validateDraft, validateSubmission } from './services/lineupValidation.js';
 
 import { getLatestObservedRoster } from './services/proTeamRosterService.js';
+import proPlayerRoutes from './routes/proPlayerRoutes.js';
 
 const app = express();
-const PORT = 3001;
-
 app.use(
   cors({
     origin: 'http://localhost:5173',
   }),
 );
+const PORT = 3001;
+
+// app.use('/api/pro-teams', proTeamRoutes);
+app.use('/api/pro-players', proPlayerRoutes);
 
 app.use(express.json());
 

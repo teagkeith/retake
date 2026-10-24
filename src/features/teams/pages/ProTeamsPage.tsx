@@ -6,7 +6,7 @@ import {
   type ProTeamSummary,
 } from '../api/proTeamApi';
 import ProTeamModal from '../components/ProTeamModal';
-
+import ProPlayerModal from '../../players/components/ProPlayerModal';
 import './ProTeamsPage.css';
 
 export default function ProTeamsPage() {
@@ -15,7 +15,13 @@ export default function ProTeamsPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [search, setSearch] = useState('');
-
+  const [showPlayerPreview, setShowPlayerPreview] = useState(false);
+  const [previewPlayer, setPreviewPlayer] = useState<{
+    id: string;
+    displayName: string;
+    verified: boolean;
+    reportedTeam: string | null;
+  } | null>(null);
   const [selectedTeam, setSelectedTeam] = useState<ProTeamDetails | null>(null);
   const [detailsLoading, setDetailsLoading] = useState(false);
   const [detailsError, setDetailsError] = useState<string | null>(null);
@@ -104,6 +110,30 @@ export default function ProTeamsPage() {
 
   return (
     <section className="proTeamsPage">
+      <button
+        type="button"
+        onClick={async () => {
+          try {
+            const response = await fetch(
+              'http://localhost:3001/api/pro-players/cmvmgfb3n02k7jom6la0mzbzu',
+            );
+
+            if (!response.ok) {
+              throw new Error('Failed to fetch player');
+            }
+
+            const player = await response.json();
+
+            setPreviewPlayer(player);
+            setShowPlayerPreview(true);
+          } catch (error) {
+            console.error('Could not load player:', error);
+          }
+        }}
+      >
+        Preview Real Player
+      </button>
+
       <header className="proTeamsHeader">
         <div>
           <h1>Professional Teams</h1>
@@ -152,6 +182,10 @@ export default function ProTeamsPage() {
       {detailsError && <p role="alert">{detailsError}</p>}
 
       {selectedTeam && <ProTeamModal team={selectedTeam} onClose={() => setSelectedTeam(null)} />}
+
+      {showPlayerPreview && previewPlayer && (
+        <ProPlayerModal player={previewPlayer} onClose={() => setShowPlayerPreview(false)} />
+      )}
     </section>
   );
 }

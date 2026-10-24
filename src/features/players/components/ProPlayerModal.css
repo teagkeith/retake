@@ -1,0 +1,165 @@
+.proPlayerModalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(8, 7, 14, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+.proPlayerModal {
+  width: 100%;
+  max-width: 620px;
+  max-height: min(85vh, 700px);
+  scrollbar-width: thin;
+  scrollbar-color: #514183 transparent;
+  overflow-y: auto;
+  background: #191622;
+  border: 1px solid #403568;
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  color: #f4f2fa;
+}
+
+.proPlayerModalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px;
+  background: linear-gradient(135deg, #30274f, #191622);
+  border-bottom: 1px solid #403568;
+}
+
+.proPlayerModalEyebrow {
+  display: block;
+  margin-bottom: 12px;
+  color: #b7a7ed;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.proPlayerModalHeader h2 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+
+.proPlayerModalHeader p {
+  margin: 0;
+  color: #aaa4ba;
+  font-size: 14px;
+}
+
+.proPlayerModalClose {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #514183;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f4f2fa;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.proPlayerModalClose:hover {
+  background: #514183;
+}
+
+.proPlayerModalClose:focus-visible {
+  outline: 2px solid #b7a7ed;
+  outline-offset: 3px;
+}
+
+.proPlayerModalBody {
+  padding: 32px;
+}
+
+.proPlayerModalBody h3 {
+  margin: 0 0 20px;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.proPlayerModalInfo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.proPlayerModalInfo > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid #302a40;
+  border-radius: 12px;
+  background: #211d2c;
+}
+
+.proPlayerModalInfo span {
+  color: #aaa4ba;
+  font-size: 12px;
+}
+
+.proPlayerModalInfo strong {
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.proPlayerModalStats {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #302a40;
+}
+
+.proPlayerModalStats p {
+  margin: 0;
+  color: #aaa4ba;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@media (max-width: 520px) {
+  .proPlayerModalOverlay {
+    padding: 12px;
+  }
+
+  .proPlayerModalHeader,
+  .proPlayerModalBody {
+    padding: 22px;
+  }
+
+  .proPlayerModalHeader h2 {
+    font-size: 26px;
+  }
+
+  .proPlayerModalInfo {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.proPlayerModal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.proPlayerModal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.proPlayerModal::-webkit-scrollbar-thumb {
+  background: #514183;
+  border-radius: 10px;
+}
